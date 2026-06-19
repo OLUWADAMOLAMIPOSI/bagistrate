@@ -1,1444 +1,1534 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bagistrate – Luxury Bags</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="images/favicon.jpeg"  class="favicon">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bagistrate – Luxury Bags</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+ <link rel="icon" type="image/png" href="images/favicon.jpeg"  class="favicon">
 
-  <style>
-  :root {
-    --rose:#F2A7C3; --rose-dark:#C4668E; --rose-deep:#8B3A5F;
-    --blush:#FDE8F0; --blush-mid:#FAD2E4; --cream:#FFF8F5;
-    --gold:#C9A86C; --gold-light:#F0DDB8;
-    --text:#2D1A24; --text-mid:#6B3F57; --text-light:#A07090;
-    --white:#FFFFFF; --border:rgba(196,102,142,0.18);
-    --shadow:0 4px 32px rgba(139,58,95,0.10);
+<style>
+:root {
+  --rose:#F2A7C3; --rose-dark:#C4668E; --rose-deep:#8B3A5F;
+  --blush:#FDE8F0; --blush-mid:#FAD2E4; --cream:#FFF8F5;
+  --gold:#C9A86C; --gold-light:#F0DDB8;
+  --text:#2D1A24; --text-mid:#6B3F57; --text-light:#A07090;
+  --white:#FFFFFF; --border:rgba(196,102,142,0.18);
+  --shadow:0 4px 32px rgba(139,58,95,0.10);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:900;background:rgba(255,248,245,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:68px;}
+.logo{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--rose-deep);letter-spacing:0.02em;text-decoration:none;cursor:pointer;}
+.logo span{color:var(--gold);}
+.nav-links{display:flex;gap:2rem;align-items:center;list-style:none;}
+.nav-links a{text-decoration:none;color:var(--text-mid);font-size:0.9rem;font-weight:500;transition:color 0.2s;cursor:pointer;}
+.nav-links a:hover{color:var(--rose-dark);}
+.nav-actions{display:flex;gap:1rem;align-items:center;}
+.btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.55rem 1.3rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:500;cursor:pointer;transition:all 0.2s;text-decoration:none;border:none;}
+.btn-primary{background:var(--rose-dark);color:white;}
+.btn-primary:hover{background:var(--rose-deep);transform:translateY(-1px);}
+.btn-outline{background:transparent;color:var(--rose-dark);border:1.5px solid var(--rose-dark);}
+.btn-outline:hover{background:var(--rose-dark);color:white;}
+.btn-gold{background:var(--gold);color:var(--text);}
+.btn-gold:hover{background:var(--rose-deep);color:white;}
+.btn-danger{background:#C62828;color:white;}
+.btn-danger:hover{background:#8B1A1A;}
+.cart-btn{position:relative;background:none;border:none;cursor:pointer;color:var(--text-mid);padding:0.3rem;display:flex;align-items:center;gap:0.4rem;font-size:0.9rem;font-weight:500;}
+.cart-count{background:var(--rose-dark);color:white;border-radius:50%;width:20px;height:20px;font-size:0.68rem;display:flex;align-items:center;justify-content:center;font-weight:700;}
+
+/* HAMBURGER MENU BUTTON */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 1000;
+}
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 2.5px;
+  background: var(--rose-deep);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ADMIN HAMBURGER */
+.admin-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 15px;
+  z-index: 1000;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+}
+.admin-hamburger span {
+  display: block;
+  width: 25px;
+  height: 2.5px;
+  background: white;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+.admin-hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.admin-hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.admin-hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* PAGES */
+.page{display:none;}
+.page.active{display:block;}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 2rem;max-width:1200px;margin:0 auto;padding-top:68px;gap:4rem;}
+.hero-text h1{font-size:clamp(2.8rem,5vw,4.2rem);line-height:1.1;color:var(--rose-deep);margin-bottom:1.2rem;}
+.hero-text h1 em{color:var(--gold);font-style:italic;}
+.hero-text p{font-size:1.1rem;color:var(--text-mid);line-height:1.8;margin-bottom:2rem;max-width:420px;}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
+.hero-visual{display:flex;justify-content:center;align-items:center;}
+.hero-bag-wrap{position:relative;width:420px;height:480px;}
+.hero-blob{position:absolute;inset:0;background:radial-gradient(ellipse at 60% 50%,var(--blush) 0%,var(--blush-mid) 60%,transparent 100%);border-radius:60% 40% 55% 45% / 50% 60% 40% 50%;}
+.hero-bag-img{position:relative;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 20px 40px rgba(139,58,95,0.25));}
+.hero-badge{position:absolute;top:20px;right:-10px;background:var(--white);border:1px solid var(--border);border-radius:16px;padding:0.7rem 1rem;box-shadow:var(--shadow);}
+.hero-badge p{font-size:0.7rem;color:var(--text-light);}
+.hero-badge strong{font-size:1rem;color:var(--rose-deep);display:block;}
+.hero-handles{display:flex;gap:1rem;margin-top:1.5rem;}
+.handle-link{display:flex;align-items:center;gap:0.4rem;text-decoration:none;color:var(--text-mid);font-size:0.85rem;font-weight:500;transition:color 0.2s;}
+.handle-link:hover{color:var(--rose-dark);}
+.handle-link svg{width:18px;height:18px;}
+
+/* SECTIONS */
+.section{padding:5rem 2rem;}
+.section-inner{max-width:1200px;margin:0 auto;}
+.section-header{text-align:center;margin-bottom:3rem;}
+.section-header h2{font-size:2.4rem;color:var(--rose-deep);margin-bottom:0.7rem;}
+.section-header p{color:var(--text-mid);font-size:1rem;max-width:500px;margin:0 auto;}
+.eyebrow{font-size:0.75rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;display:block;}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2rem;}
+.product-card{background:var(--white);border-radius:20px;border:1px solid var(--border);overflow:hidden;transition:transform 0.25s,box-shadow 0.25s;cursor:pointer;}
+.product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+.product-img-wrap{position:relative;height:240px;background:var(--blush);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s;}
+.product-card:hover .product-img-wrap img{transform:scale(1.06);}
+.product-badge-tag{position:absolute;top:12px;left:12px;background:var(--rose-dark);color:white;font-size:0.72rem;padding:3px 10px;border-radius:50px;font-weight:600;}
+.product-info{padding:1.2rem;}
+.product-name{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--text);margin-bottom:0.3rem;}
+.product-desc-short{font-size:0.82rem;color:var(--text-light);margin-bottom:1rem;line-height:1.6;}
+.product-footer{display:flex;align-items:center;justify-content:space-between;}
+.product-price{font-size:1.1rem;font-weight:600;color:var(--rose-deep);}
+.product-price del{font-size:0.8rem;color:var(--text-light);margin-right:0.3rem;font-weight:400;}
+.add-to-cart-btn{background:var(--rose-dark);color:white;border:none;border-radius:50px;padding:0.45rem 1rem;font-size:0.82rem;font-weight:500;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.add-to-cart-btn:hover{background:var(--rose-deep);}
+
+/* FEATURED */
+.featured-section{background:linear-gradient(135deg,var(--blush) 0%,var(--cream) 100%);}
+.featured-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.featured-img{border-radius:24px;overflow:hidden;height:450px;background:var(--blush-mid);display:flex;align-items:center;justify-content:center;}
+.featured-img img{width:100%;height:100%;object-fit:cover;}
+.featured-text h2{font-size:2.4rem;color:var(--rose-deep);line-height:1.2;margin-bottom:1rem;}
+.featured-text p{color:var(--text-mid);line-height:1.8;margin-bottom:1.5rem;}
+.features-list{list-style:none;margin-bottom:2rem;}
+.features-list li{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.7rem;font-size:0.92rem;color:var(--text-mid);}
+.features-list li::before{content:'*';color:var(--gold);font-size:0.7rem;font-weight:900;}
+
+/* NEWSLETTER */
+.newsletter-section{background:var(--rose-deep);}
+.newsletter-inner{text-align:center;max-width:560px;margin:0 auto;}
+.newsletter-inner h2{font-size:2.2rem;color:white;margin-bottom:0.8rem;}
+.newsletter-inner p{color:rgba(255,255,255,0.75);margin-bottom:2rem;}
+.newsletter-form{display:flex;gap:0.8rem;max-width:440px;margin:0 auto;}
+.newsletter-form input{flex:1;padding:0.8rem 1.2rem;border-radius:50px;border:none;font-family:'DM Sans',sans-serif;font-size:0.9rem;background:rgba(255,255,255,0.15);color:white;}
+.newsletter-form input::placeholder{color:rgba(255,255,255,0.55);}
+.newsletter-form input:focus{outline:2px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.2);}
+.newsletter-form .btn{background:var(--gold);color:var(--text);flex-shrink:0;}
+.newsletter-form .btn:hover{background:white;}
+
+/* TESTIMONIALS */
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;}
+.testi-card{background:var(--white);border-radius:20px;border:1px solid var(--border);padding:1.8rem;}
+.testi-stars{color:var(--gold);font-size:0.9rem;margin-bottom:0.8rem;letter-spacing:2px;}
+.testi-text{font-style:italic;color:var(--text-mid);line-height:1.7;margin-bottom:1.2rem;font-size:0.92rem;}
+.testi-author{display:flex;align-items:center;gap:0.8rem;}
+.testi-avatar{width:36px;height:36px;border-radius:50%;background:var(--blush-mid);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:0.8rem;color:var(--rose-deep);}
+.testi-name{font-weight:600;font-size:0.88rem;color:var(--text);}
+.testi-loc{font-size:0.78rem;color:var(--text-light);}
+
+/* FOOTER */
+footer{background:var(--text);color:rgba(255,255,255,0.8);padding:4rem 2rem 2rem;}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
+footer h4{font-family:'Playfair Display',serif;color:white;margin-bottom:1rem;font-size:1rem;}
+footer p,footer a{font-size:0.87rem;color:rgba(255,255,255,0.65);text-decoration:none;display:block;margin-bottom:0.4rem;line-height:1.7;}
+footer a:hover{color:var(--rose);}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:white;margin-bottom:0.8rem;}
+.footer-logo span{color:var(--gold);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:1.5rem;text-align:center;font-size:0.82rem;color:rgba(255,255,255,0.4);}
+.footer-social{display:flex;gap:1rem;margin-top:1rem;}
+.social-icon{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.82rem;transition:all 0.2s;}
+.social-icon:hover{background:var(--rose-dark);color:white;}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(45,26,36,0.6);z-index:2000;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--white);border-radius:24px;max-width:540px;width:100%;max-height:90vh;overflow-y:auto;padding:2.5rem;position:relative;}
+.modal-close{position:absolute;top:1.2rem;right:1.2rem;background:var(--blush);border:none;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1rem;color:var(--rose-deep);display:flex;align-items:center;justify-content:center;}
+.modal h3{font-size:1.5rem;color:var(--rose-deep);margin-bottom:0.3rem;}
+.modal .product-detail-price{font-size:1.4rem;color:var(--rose-dark);font-weight:600;margin-bottom:1rem;}
+.modal img.modal-prod-img{width:100%;height:250px;object-fit:cover;border-radius:16px;margin-bottom:1.5rem;}
+.qty-wrap{display:flex;align-items:center;gap:1rem;margin:1.2rem 0;}
+.qty-btn{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--rose-dark);background:none;color:var(--rose-dark);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.qty-display{font-size:1rem;font-weight:600;min-width:24px;text-align:center;}
+
+/* CART SIDEBAR */
+.cart-sidebar{position:fixed;right:0;top:0;bottom:0;width:400px;background:var(--white);z-index:1800;box-shadow:-8px 0 40px rgba(45,26,36,0.15);transform:translateX(100%);transition:transform 0.3s;display:flex;flex-direction:column;}
+.cart-sidebar.open{transform:translateX(0);}
+.cart-header{padding:1.5rem 2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.cart-header h3{font-size:1.2rem;color:var(--rose-deep);}
+.cart-items{flex:1;overflow-y:auto;padding:1.5rem 2rem;}
+.cart-item{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);}
+.cart-item-img{width:70px;height:70px;border-radius:12px;object-fit:cover;background:var(--blush);}
+.cart-item-info{flex:1;}
+.cart-item-name{font-weight:500;font-size:0.9rem;color:var(--text);margin-bottom:0.2rem;}
+.cart-item-price{color:var(--rose-dark);font-weight:600;font-size:0.9rem;}
+.cart-item-qty{font-size:0.8rem;color:var(--text-light);}
+.cart-item-remove{background:none;border:none;color:var(--text-light);cursor:pointer;font-size:1rem;}
+.cart-footer{padding:1.5rem 2rem;border-top:1px solid var(--border);}
+.cart-total{display:flex;justify-content:space-between;font-weight:600;margin-bottom:1.2rem;font-size:1rem;color:var(--text);}
+.empty-cart{text-align:center;padding:3rem 1rem;color:var(--text-light);}
+.empty-cart .empty-icon{font-size:2rem;margin-bottom:1rem;display:block;color:var(--rose);}
+
+/* CHECKOUT */
+.checkout-wrap{max-width:900px;margin:0 auto;padding:2rem;padding-top:100px;display:grid;grid-template-columns:1fr 360px;gap:2rem;}
+.checkout-form-section,.order-summary{background:var(--white);border-radius:20px;border:1px solid var(--border);padding:2rem;height:fit-content;}
+.checkout-form-section h2{font-size:1.4rem;color:var(--rose-deep);margin-bottom:1.5rem;}
+.form-group{margin-bottom:1.2rem;}
+.form-group label{display:block;font-size:0.85rem;font-weight:500;color:var(--text-mid);margin-bottom:0.4rem;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:0.75rem 1rem;border-radius:10px;border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--text);background:var(--cream);transition:border-color 0.2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--rose-dark);background:white;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.bank-details-box{background:var(--blush);border-radius:12px;padding:1.2rem;margin:1.5rem 0;border:1px solid var(--blush-mid);}
+.bank-details-box h4{color:var(--rose-deep);font-size:0.95rem;margin-bottom:0.8rem;}
+.bank-row{display:flex;justify-content:space-between;font-size:0.88rem;padding:0.3rem 0;color:var(--text-mid);}
+.bank-row strong{color:var(--text);}
+.whatsapp-confirm{display:flex;align-items:center;gap:0.8rem;background:#E8F5E9;border-radius:12px;padding:1rem 1.2rem;text-decoration:none;color:#2E7D32;font-size:0.88rem;font-weight:500;transition:all 0.2s;margin-top:0.8rem;border:1px solid #A5D6A7;}
+.whatsapp-confirm:hover{background:#2E7D32;color:white;}
+.whatsapp-confirm svg{width:22px;height:22px;flex-shrink:0;}
+.order-summary h3{font-size:1.1rem;color:var(--rose-deep);margin-bottom:1rem;}
+.summary-item{display:flex;justify-content:space-between;font-size:0.88rem;padding:0.4rem 0;color:var(--text-mid);border-bottom:1px dashed var(--border);}
+.summary-total{display:flex;justify-content:space-between;font-weight:700;font-size:1rem;color:var(--text);margin-top:0.8rem;padding-top:0.8rem;}
+.upload-proof{border:2px dashed var(--rose);border-radius:12px;padding:1.5rem;text-align:center;cursor:pointer;transition:all 0.2s;}
+.upload-proof:hover{background:var(--blush);}
+.upload-proof p{font-size:0.85rem;color:var(--text-light);}
+.proof-preview{max-width:100%;max-height:140px;border-radius:8px;margin-top:0.8rem;display:none;}
+
+/* ORDER SUCCESS */
+.success-wrap{max-width:540px;margin:120px auto;text-align:center;padding:2rem;}
+.success-wrap h2{font-size:2rem;color:var(--rose-deep);margin-bottom:0.8rem;}
+.success-wrap p{color:var(--text-mid);line-height:1.8;}
+.success-icon-mark{width:72px;height:72px;border-radius:50%;background:var(--blush);border:2px solid var(--rose-dark);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:1.8rem;color:var(--rose-deep);}
+
+/* ADMIN AUTH */
+.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--cream);padding:2rem;}
+.auth-card{background:var(--white);border-radius:24px;padding:3rem;max-width:440px;width:100%;border:1px solid var(--border);box-shadow:var(--shadow);}
+.auth-card .brand{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--rose-deep);margin-bottom:0.3rem;}
+.auth-card .brand span{color:var(--gold);}
+.auth-card h2{font-size:1.3rem;color:var(--text);margin-bottom:0.4rem;}
+.auth-card .sub{font-size:0.85rem;color:var(--text-light);margin-bottom:2rem;}
+.auth-divider{display:flex;align-items:center;gap:1rem;margin:1.2rem 0;}
+.auth-divider span{font-size:0.8rem;color:var(--text-light);white-space:nowrap;}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.auth-link{font-size:0.85rem;color:var(--rose-dark);cursor:pointer;text-decoration:underline;background:none;border:none;font-family:'DM Sans',sans-serif;}
+.auth-error{background:#FFEBEE;color:#C62828;border-radius:8px;padding:0.6rem 0.9rem;font-size:0.83rem;margin-bottom:1rem;display:none;}
+.auth-info{background:var(--blush);color:var(--rose-deep);border-radius:8px;padding:0.7rem 0.9rem;font-size:0.83rem;margin-bottom:1rem;display:none;}
+.code-inputs{display:flex;gap:0.6rem;justify-content:center;margin:1.2rem 0;}
+.code-inputs input{width:44px;height:52px;text-align:center;font-size:1.2rem;font-weight:700;border-radius:10px;border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;color:var(--text);}
+.code-inputs input:focus{border-color:var(--rose-dark);outline:none;}
+
+/* ADMIN PANEL */
+.admin-wrap{display:flex;min-height:100vh;position:relative;}
+.admin-sidebar{width:240px;background:var(--text);padding:2rem 0;flex-shrink:0;position:fixed;top:0;bottom:0;left:0;z-index:800;display:flex;flex-direction:column;transition:transform 0.3s ease;}
+.admin-logo{padding:0 1.5rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:1rem;}
+.admin-logo p{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--gold);}
+.admin-logo small{font-size:0.72rem;color:rgba(255,255,255,0.4);}
+.admin-nav-link{display:flex;align-items:center;gap:0.8rem;padding:0.75rem 1.5rem;color:rgba(255,255,255,0.65);text-decoration:none;font-size:0.88rem;transition:all 0.2s;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:'DM Sans',sans-serif;}
+.admin-nav-link:hover,.admin-nav-link.active{background:rgba(242,167,195,0.12);color:var(--rose);}
+.admin-nav-link .nav-icon{width:18px;text-align:center;}
+.admin-logout-btn{margin-top:auto;border-top:1px solid rgba(255,255,255,0.08);padding-top:0.5rem;}
+.admin-main{margin-left:240px;flex:1;padding:2.5rem;background:#F9F4F6;min-height:100vh;transition:margin-left 0.3s ease;}
+.admin-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;}
+.admin-topbar h1{font-size:1.6rem;color:var(--rose-deep);}
+.admin-section{display:none;}
+.admin-section.active{display:block;}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1.2rem;margin-bottom:2.5rem;}
+.stat-card{background:var(--white);border-radius:16px;padding:1.4rem;border:1px solid var(--border);}
+.stat-label{font-size:0.75rem;color:var(--text-light);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.08em;}
+.stat-value{font-size:1.9rem;font-weight:700;color:var(--rose-deep);font-family:'Playfair Display',serif;}
+.stat-sub{font-size:0.76rem;color:var(--text-light);margin-top:0.3rem;}
+.admin-card{background:var(--white);border-radius:16px;padding:1.8rem;border:1px solid var(--border);margin-bottom:1.5rem;}
+.admin-card h3{font-size:1.1rem;color:var(--rose-deep);margin-bottom:1.2rem;}
+.admin-table{width:100%;border-collapse:collapse;font-size:0.88rem;}
+.admin-table th{text-align:left;padding:0.6rem 1rem;background:var(--blush);color:var(--rose-deep);font-weight:600;font-size:0.8rem;}
+.admin-table td{padding:0.8rem 1rem;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle;}
+.admin-table tr:hover td{background:var(--cream);}
+.admin-table tr:last-child td{border-bottom:none;}
+.status-badge{display:inline-block;padding:3px 10px;border-radius:50px;font-size:0.75rem;font-weight:600;}
+.status-pending{background:#FFF3E0;color:#E65100;}
+.status-confirmed{background:#E8F5E9;color:#2E7D32;}
+.status-shipped{background:#E3F2FD;color:#1565C0;}
+.product-manage-img{width:50px;height:50px;object-fit:cover;border-radius:8px;background:var(--blush);}
+.action-btn{background:none;border:none;cursor:pointer;padding:0.3rem 0.6rem;border-radius:6px;font-size:0.8rem;font-family:'DM Sans',sans-serif;font-weight:500;}
+.action-edit{color:var(--rose-dark);}
+.action-edit:hover{background:var(--blush);}
+.action-delete{color:#C62828;}
+.action-delete:hover{background:#FFEBEE;}
+.upload-area{border:2px dashed var(--rose);border-radius:12px;padding:2rem;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--cream);}
+.upload-area:hover{background:var(--blush);border-color:var(--rose-dark);}
+.upload-area p{color:var(--text-light);font-size:0.9rem;}
+.upload-area strong{color:var(--rose-dark);}
+.upload-preview-img{max-width:100%;max-height:160px;border-radius:10px;margin-top:0.8rem;display:none;}
+.tag{display:inline-block;background:var(--blush);color:var(--rose-deep);border-radius:50px;font-size:0.75rem;padding:2px 10px;font-weight:500;}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:0.8rem 0;border-bottom:1px solid var(--border);}
+.settings-row:last-child{border-bottom:none;}
+.settings-val{font-size:0.9rem;color:var(--text);font-weight:500;}
+.settings-key{font-size:0.82rem;color:var(--text-light);}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--rose-deep);color:white;padding:0.9rem 1.4rem;border-radius:14px;font-size:0.88rem;z-index:9999;transform:translateY(120px);opacity:0;transition:all 0.35s;max-width:300px;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.success{background:#2E7D32;}
+.toast.error{background:#C62828;}
+
+/* WHATSAPP FLOAT */
+.wa-float{position:fixed;bottom:2rem;left:2rem;z-index:1000;display:flex;align-items:center;gap:0.7rem;background:#25D366;color:white;padding:0.75rem 1.2rem;border-radius:50px;text-decoration:none;font-size:0.85rem;font-weight:500;box-shadow:0 4px 20px rgba(37,211,102,0.35);transition:all 0.2s;}
+.wa-float:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(37,211,102,0.45);}
+.wa-float svg{width:20px;height:20px;}
+
+/* MOBILE RESPONSIVE */
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;padding-top:80px;text-align:center;gap:2rem;}
+  .hero-text p{margin:0 auto 2rem;}
+  .hero-actions{justify-content:center;}
+  .hero-handles{justify-content:center;}
+  .hero-visual{display:none;}
+  .featured-grid{grid-template-columns:1fr;}
+  .footer-inner{grid-template-columns:1fr 1fr;}
+  .checkout-wrap{grid-template-columns:1fr;}
+  
+  /* ADMIN SIDEBAR HAMBURGER */
+  .admin-hamburger {
+    display: flex;
   }
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
-  h1,h2,h3,h4{font-family:'Playfair Display',serif;}
-
-  /* NAV */
-  .nav{position:fixed;top:0;left:0;right:0;z-index:900;background:rgba(255,248,245,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
-  .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:68px;}
-  .logo{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--rose-deep);letter-spacing:0.02em;text-decoration:none;cursor:pointer;}
-  .logo span{color:var(--gold);}
-  .nav-links{display:flex;gap:2rem;align-items:center;list-style:none;}
-  .nav-links a{text-decoration:none;color:var(--text-mid);font-size:0.9rem;font-weight:500;transition:color 0.2s;cursor:pointer;}
-  .nav-links a:hover{color:var(--rose-dark);}
-  .nav-actions{display:flex;gap:1rem;align-items:center;}
-  .btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.55rem 1.3rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:500;cursor:pointer;transition:all 0.2s;text-decoration:none;border:none;}
-  .btn-primary{background:var(--rose-dark);color:white;}
-  .btn-primary:hover{background:var(--rose-deep);transform:translateY(-1px);}
-  .btn-outline{background:transparent;color:var(--rose-dark);border:1.5px solid var(--rose-dark);}
-  .btn-outline:hover{background:var(--rose-dark);color:white;}
-  .btn-gold{background:var(--gold);color:var(--text);}
-  .btn-gold:hover{background:var(--rose-deep);color:white;}
-  .btn-danger{background:#C62828;color:white;}
-  .btn-danger:hover{background:#8B1A1A;}
-  .cart-btn{position:relative;background:none;border:none;cursor:pointer;color:var(--text-mid);padding:0.3rem;display:flex;align-items:center;gap:0.4rem;font-size:0.9rem;font-weight:500;}
-  .cart-count{background:var(--rose-dark);color:white;border-radius:50%;width:20px;height:20px;font-size:0.68rem;display:flex;align-items:center;justify-content:center;font-weight:700;}
-
-  /* HAMBURGER MENU BUTTON */
+  
+  .admin-sidebar {
+    transform: translateX(-100%);
+    width: 280px;
+  }
+  
+  .admin-sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .admin-main {
+    margin-left: 0;
+    padding: 1.5rem;
+    padding-top: 70px;
+  }
+  
+  /* MAIN NAV HAMBURGER */
   .hamburger {
+    display: flex;
+  }
+  
+  .nav-links {
     display: none;
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    background: rgba(255, 248, 245, 0.98);
+    backdrop-filter: blur(14px);
     flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    z-index: 1000;
+    padding: 1.5rem 2rem;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
   }
-  .hamburger span {
-    display: block;
-    width: 25px;
-    height: 2.5px;
-    background: var(--rose-deep);
-    border-radius: 3px;
-    transition: all 0.3s ease;
+  
+  .nav-links.active {
+    display: flex;
   }
-  .hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+  
+  .nav-links a {
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(196,102,142,0.1);
   }
-  .hamburger.active span:nth-child(2) {
-    opacity: 0;
+  .nav-links a:last-child {
+    border-bottom: none;
   }
-  .hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-  }
+}
+</style>
+</head>
+<body>
 
-  /* PAGES */
-  .page{display:none;}
-  .page.active{display:block;}
-
-  /* HERO */
-  .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 2rem;max-width:1200px;margin:0 auto;padding-top:68px;gap:4rem;}
-  .hero-text h1{font-size:clamp(2.8rem,5vw,4.2rem);line-height:1.1;color:var(--rose-deep);margin-bottom:1.2rem;}
-  .hero-text h1 em{color:var(--gold);font-style:italic;}
-  .hero-text p{font-size:1.1rem;color:var(--text-mid);line-height:1.8;margin-bottom:2rem;max-width:420px;}
-  .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
-  .hero-visual{display:flex;justify-content:center;align-items:center;}
-  .hero-bag-wrap{position:relative;width:420px;height:480px;}
-  .hero-blob{position:absolute;inset:0;background:radial-gradient(ellipse at 60% 50%,var(--blush) 0%,var(--blush-mid) 60%,transparent 100%);border-radius:60% 40% 55% 45% / 50% 60% 40% 50%;}
-  .hero-bag-img{position:relative;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 20px 40px rgba(139,58,95,0.25));}
-  .hero-badge{position:absolute;top:20px;right:-10px;background:var(--white);border:1px solid var(--border);border-radius:16px;padding:0.7rem 1rem;box-shadow:var(--shadow);}
-  .hero-badge p{font-size:0.7rem;color:var(--text-light);}
-  .hero-badge strong{font-size:1rem;color:var(--rose-deep);display:block;}
-  .hero-handles{display:flex;gap:1rem;margin-top:1.5rem;}
-  .handle-link{display:flex;align-items:center;gap:0.4rem;text-decoration:none;color:var(--text-mid);font-size:0.85rem;font-weight:500;transition:color 0.2s;}
-  .handle-link:hover{color:var(--rose-dark);}
-  .handle-link svg{width:18px;height:18px;}
-
-  /* SECTIONS */
-  .section{padding:5rem 2rem;}
-  .section-inner{max-width:1200px;margin:0 auto;}
-  .section-header{text-align:center;margin-bottom:3rem;}
-  .section-header h2{font-size:2.4rem;color:var(--rose-deep);margin-bottom:0.7rem;}
-  .section-header p{color:var(--text-mid);font-size:1rem;max-width:500px;margin:0 auto;}
-  .eyebrow{font-size:0.75rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;display:block;}
-
-  /* PRODUCTS */
-  .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2rem;}
-  .product-card{background:var(--white);border-radius:20px;border:1px solid var(--border);overflow:hidden;transition:transform 0.25s,box-shadow 0.25s;cursor:pointer;}
-  .product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
-  .product-img-wrap{position:relative;height:240px;background:var(--blush);display:flex;align-items:center;justify-content:center;overflow:hidden;}
-  .product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s;}
-  .product-card:hover .product-img-wrap img{transform:scale(1.06);}
-  .product-badge-tag{position:absolute;top:12px;left:12px;background:var(--rose-dark);color:white;font-size:0.72rem;padding:3px 10px;border-radius:50px;font-weight:600;}
-  .product-info{padding:1.2rem;}
-  .product-name{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--text);margin-bottom:0.3rem;}
-  .product-desc-short{font-size:0.82rem;color:var(--text-light);margin-bottom:1rem;line-height:1.6;}
-  .product-footer{display:flex;align-items:center;justify-content:space-between;}
-  .product-price{font-size:1.1rem;font-weight:600;color:var(--rose-deep);}
-  .product-price del{font-size:0.8rem;color:var(--text-light);margin-right:0.3rem;font-weight:400;}
-  .add-to-cart-btn{background:var(--rose-dark);color:white;border:none;border-radius:50px;padding:0.45rem 1rem;font-size:0.82rem;font-weight:500;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
-  .add-to-cart-btn:hover{background:var(--rose-deep);}
-
-  /* FEATURED */
-  .featured-section{background:linear-gradient(135deg,var(--blush) 0%,var(--cream) 100%);}
-  .featured-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
-  .featured-img{border-radius:24px;overflow:hidden;height:450px;background:var(--blush-mid);display:flex;align-items:center;justify-content:center;}
-  .featured-img img{width:100%;height:100%;object-fit:cover;}
-  .featured-text h2{font-size:2.4rem;color:var(--rose-deep);line-height:1.2;margin-bottom:1rem;}
-  .featured-text p{color:var(--text-mid);line-height:1.8;margin-bottom:1.5rem;}
-  .features-list{list-style:none;margin-bottom:2rem;}
-  .features-list li{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.7rem;font-size:0.92rem;color:var(--text-mid);}
-  .features-list li::before{content:'*';color:var(--gold);font-size:0.7rem;font-weight:900;}
-
-  /* NEWSLETTER */
-  .newsletter-section{background:var(--rose-deep);}
-  .newsletter-inner{text-align:center;max-width:560px;margin:0 auto;}
-  .newsletter-inner h2{font-size:2.2rem;color:white;margin-bottom:0.8rem;}
-  .newsletter-inner p{color:rgba(255,255,255,0.75);margin-bottom:2rem;}
-  .newsletter-form{display:flex;gap:0.8rem;max-width:440px;margin:0 auto;}
-  .newsletter-form input{flex:1;padding:0.8rem 1.2rem;border-radius:50px;border:none;font-family:'DM Sans',sans-serif;font-size:0.9rem;background:rgba(255,255,255,0.15);color:white;}
-  .newsletter-form input::placeholder{color:rgba(255,255,255,0.55);}
-  .newsletter-form input:focus{outline:2px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.2);}
-  .newsletter-form .btn{background:var(--gold);color:var(--text);flex-shrink:0;}
-  .newsletter-form .btn:hover{background:white;}
-
-  /* TESTIMONIALS */
-  .testimonials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;}
-  .testi-card{background:var(--white);border-radius:20px;border:1px solid var(--border);padding:1.8rem;}
-  .testi-stars{color:var(--gold);font-size:0.9rem;margin-bottom:0.8rem;letter-spacing:2px;}
-  .testi-text{font-style:italic;color:var(--text-mid);line-height:1.7;margin-bottom:1.2rem;font-size:0.92rem;}
-  .testi-author{display:flex;align-items:center;gap:0.8rem;}
-  .testi-avatar{width:36px;height:36px;border-radius:50%;background:var(--blush-mid);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:0.8rem;color:var(--rose-deep);}
-  .testi-name{font-weight:600;font-size:0.88rem;color:var(--text);}
-  .testi-loc{font-size:0.78rem;color:var(--text-light);}
-
-  /* FOOTER */
-  footer{background:var(--text);color:rgba(255,255,255,0.8);padding:4rem 2rem 2rem;}
-  .footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
-  footer h4{font-family:'Playfair Display',serif;color:white;margin-bottom:1rem;font-size:1rem;}
-  footer p,footer a{font-size:0.87rem;color:rgba(255,255,255,0.65);text-decoration:none;display:block;margin-bottom:0.4rem;line-height:1.7;}
-  footer a:hover{color:var(--rose);}
-  .footer-logo{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:white;margin-bottom:0.8rem;}
-  .footer-logo span{color:var(--gold);}
-  .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:1.5rem;text-align:center;font-size:0.82rem;color:rgba(255,255,255,0.4);}
-  .footer-social{display:flex;gap:1rem;margin-top:1rem;}
-  .social-icon{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.82rem;transition:all 0.2s;}
-  .social-icon:hover{background:var(--rose-dark);color:white;}
-
-  /* MODAL */
-  .modal-overlay{position:fixed;inset:0;background:rgba(45,26,36,0.6);z-index:2000;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);}
-  .modal-overlay.open{display:flex;}
-  .modal{background:var(--white);border-radius:24px;max-width:540px;width:100%;max-height:90vh;overflow-y:auto;padding:2.5rem;position:relative;}
-  .modal-close{position:absolute;top:1.2rem;right:1.2rem;background:var(--blush);border:none;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1rem;color:var(--rose-deep);display:flex;align-items:center;justify-content:center;}
-  .modal h3{font-size:1.5rem;color:var(--rose-deep);margin-bottom:0.3rem;}
-  .modal .product-detail-price{font-size:1.4rem;color:var(--rose-dark);font-weight:600;margin-bottom:1rem;}
-  .modal img.modal-prod-img{width:100%;height:250px;object-fit:cover;border-radius:16px;margin-bottom:1.5rem;}
-  .qty-wrap{display:flex;align-items:center;gap:1rem;margin:1.2rem 0;}
-  .qty-btn{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--rose-dark);background:none;color:var(--rose-dark);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-  .qty-display{font-size:1rem;font-weight:600;min-width:24px;text-align:center;}
-
-  /* CART SIDEBAR */
-  .cart-sidebar{position:fixed;right:0;top:0;bottom:0;width:400px;background:var(--white);z-index:1800;box-shadow:-8px 0 40px rgba(45,26,36,0.15);transform:translateX(100%);transition:transform 0.3s;display:flex;flex-direction:column;}
-  .cart-sidebar.open{transform:translateX(0);}
-  .cart-header{padding:1.5rem 2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
-  .cart-header h3{font-size:1.2rem;color:var(--rose-deep);}
-  .cart-items{flex:1;overflow-y:auto;padding:1.5rem 2rem;}
-  .cart-item{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);}
-  .cart-item-img{width:70px;height:70px;border-radius:12px;object-fit:cover;background:var(--blush);}
-  .cart-item-info{flex:1;}
-  .cart-item-name{font-weight:500;font-size:0.9rem;color:var(--text);margin-bottom:0.2rem;}
-  .cart-item-price{color:var(--rose-dark);font-weight:600;font-size:0.9rem;}
-  .cart-item-qty{font-size:0.8rem;color:var(--text-light);}
-  .cart-item-remove{background:none;border:none;color:var(--text-light);cursor:pointer;font-size:1rem;}
-  .cart-footer{padding:1.5rem 2rem;border-top:1px solid var(--border);}
-  .cart-total{display:flex;justify-content:space-between;font-weight:600;margin-bottom:1.2rem;font-size:1rem;color:var(--text);}
-  .empty-cart{text-align:center;padding:3rem 1rem;color:var(--text-light);}
-  .empty-cart .empty-icon{font-size:2rem;margin-bottom:1rem;display:block;color:var(--rose);}
-
-  /* CHECKOUT */
-  .checkout-wrap{max-width:900px;margin:0 auto;padding:2rem;padding-top:100px;display:grid;grid-template-columns:1fr 360px;gap:2rem;}
-  .checkout-form-section,.order-summary{background:var(--white);border-radius:20px;border:1px solid var(--border);padding:2rem;height:fit-content;}
-  .checkout-form-section h2{font-size:1.4rem;color:var(--rose-deep);margin-bottom:1.5rem;}
-  .form-group{margin-bottom:1.2rem;}
-  .form-group label{display:block;font-size:0.85rem;font-weight:500;color:var(--text-mid);margin-bottom:0.4rem;}
-  .form-group input,.form-group select,.form-group textarea{width:100%;padding:0.75rem 1rem;border-radius:10px;border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--text);background:var(--cream);transition:border-color 0.2s;}
-  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--rose-dark);background:white;}
-  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-  .bank-details-box{background:var(--blush);border-radius:12px;padding:1.2rem;margin:1.5rem 0;border:1px solid var(--blush-mid);}
-  .bank-details-box h4{color:var(--rose-deep);font-size:0.95rem;margin-bottom:0.8rem;}
-  .bank-row{display:flex;justify-content:space-between;font-size:0.88rem;padding:0.3rem 0;color:var(--text-mid);}
-  .bank-row strong{color:var(--text);}
-  .whatsapp-confirm{display:flex;align-items:center;gap:0.8rem;background:#E8F5E9;border-radius:12px;padding:1rem 1.2rem;text-decoration:none;color:#2E7D32;font-size:0.88rem;font-weight:500;transition:all 0.2s;margin-top:0.8rem;border:1px solid #A5D6A7;}
-  .whatsapp-confirm:hover{background:#2E7D32;color:white;}
-  .whatsapp-confirm svg{width:22px;height:22px;flex-shrink:0;}
-  .order-summary h3{font-size:1.1rem;color:var(--rose-deep);margin-bottom:1rem;}
-  .summary-item{display:flex;justify-content:space-between;font-size:0.88rem;padding:0.4rem 0;color:var(--text-mid);border-bottom:1px dashed var(--border);}
-  .summary-total{display:flex;justify-content:space-between;font-weight:700;font-size:1rem;color:var(--text);margin-top:0.8rem;padding-top:0.8rem;}
-  .upload-proof{border:2px dashed var(--rose);border-radius:12px;padding:1.5rem;text-align:center;cursor:pointer;transition:all 0.2s;}
-  .upload-proof:hover{background:var(--blush);}
-  .upload-proof p{font-size:0.85rem;color:var(--text-light);}
-  .proof-preview{max-width:100%;max-height:140px;border-radius:8px;margin-top:0.8rem;display:none;}
-
-  /* ORDER SUCCESS */
-  .success-wrap{max-width:540px;margin:120px auto;text-align:center;padding:2rem;}
-  .success-wrap h2{font-size:2rem;color:var(--rose-deep);margin-bottom:0.8rem;}
-  .success-wrap p{color:var(--text-mid);line-height:1.8;}
-  .success-icon-mark{width:72px;height:72px;border-radius:50%;background:var(--blush);border:2px solid var(--rose-dark);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:1.8rem;color:var(--rose-deep);}
-
-  /* ADMIN AUTH */
-  .auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--cream);padding:2rem;}
-  .auth-card{background:var(--white);border-radius:24px;padding:3rem;max-width:440px;width:100%;border:1px solid var(--border);box-shadow:var(--shadow);}
-  .auth-card .brand{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--rose-deep);margin-bottom:0.3rem;}
-  .auth-card .brand span{color:var(--gold);}
-  .auth-card h2{font-size:1.3rem;color:var(--text);margin-bottom:0.4rem;}
-  .auth-card .sub{font-size:0.85rem;color:var(--text-light);margin-bottom:2rem;}
-  .auth-divider{display:flex;align-items:center;gap:1rem;margin:1.2rem 0;}
-  .auth-divider span{font-size:0.8rem;color:var(--text-light);white-space:nowrap;}
-  .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border);}
-  .auth-link{font-size:0.85rem;color:var(--rose-dark);cursor:pointer;text-decoration:underline;background:none;border:none;font-family:'DM Sans',sans-serif;}
-  .auth-error{background:#FFEBEE;color:#C62828;border-radius:8px;padding:0.6rem 0.9rem;font-size:0.83rem;margin-bottom:1rem;display:none;}
-  .auth-info{background:var(--blush);color:var(--rose-deep);border-radius:8px;padding:0.7rem 0.9rem;font-size:0.83rem;margin-bottom:1rem;display:none;}
-  .code-inputs{display:flex;gap:0.6rem;justify-content:center;margin:1.2rem 0;}
-  .code-inputs input{width:44px;height:52px;text-align:center;font-size:1.2rem;font-weight:700;border-radius:10px;border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;color:var(--text);}
-  .code-inputs input:focus{border-color:var(--rose-dark);outline:none;}
-
-  /* ADMIN PANEL */
-  .admin-wrap{display:flex;min-height:100vh;}
-  .admin-sidebar{width:240px;background:var(--text);padding:2rem 0;flex-shrink:0;position:fixed;top:0;bottom:0;left:0;z-index:800;display:flex;flex-direction:column;}
-  .admin-logo{padding:0 1.5rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:1rem;}
-  .admin-logo p{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--gold);}
-  .admin-logo small{font-size:0.72rem;color:rgba(255,255,255,0.4);}
-  .admin-nav-link{display:flex;align-items:center;gap:0.8rem;padding:0.75rem 1.5rem;color:rgba(255,255,255,0.65);text-decoration:none;font-size:0.88rem;transition:all 0.2s;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:'DM Sans',sans-serif;}
-  .admin-nav-link:hover,.admin-nav-link.active{background:rgba(242,167,195,0.12);color:var(--rose);}
-  .admin-nav-link .nav-icon{width:18px;text-align:center;}
-  .admin-logout-btn{margin-top:auto;border-top:1px solid rgba(255,255,255,0.08);padding-top:0.5rem;}
-  .admin-main{margin-left:240px;flex:1;padding:2.5rem;background:#F9F4F6;min-height:100vh;}
-  .admin-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;}
-  .admin-topbar h1{font-size:1.6rem;color:var(--rose-deep);}
-  .admin-section{display:none;}
-  .admin-section.active{display:block;}
-  .stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1.2rem;margin-bottom:2.5rem;}
-  .stat-card{background:var(--white);border-radius:16px;padding:1.4rem;border:1px solid var(--border);}
-  .stat-label{font-size:0.75rem;color:var(--text-light);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.08em;}
-  .stat-value{font-size:1.9rem;font-weight:700;color:var(--rose-deep);font-family:'Playfair Display',serif;}
-  .stat-sub{font-size:0.76rem;color:var(--text-light);margin-top:0.3rem;}
-  .admin-card{background:var(--white);border-radius:16px;padding:1.8rem;border:1px solid var(--border);margin-bottom:1.5rem;}
-  .admin-card h3{font-size:1.1rem;color:var(--rose-deep);margin-bottom:1.2rem;}
-  .admin-table{width:100%;border-collapse:collapse;font-size:0.88rem;}
-  .admin-table th{text-align:left;padding:0.6rem 1rem;background:var(--blush);color:var(--rose-deep);font-weight:600;font-size:0.8rem;}
-  .admin-table td{padding:0.8rem 1rem;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle;}
-  .admin-table tr:hover td{background:var(--cream);}
-  .admin-table tr:last-child td{border-bottom:none;}
-  .status-badge{display:inline-block;padding:3px 10px;border-radius:50px;font-size:0.75rem;font-weight:600;}
-  .status-pending{background:#FFF3E0;color:#E65100;}
-  .status-confirmed{background:#E8F5E9;color:#2E7D32;}
-  .status-shipped{background:#E3F2FD;color:#1565C0;}
-  .product-manage-img{width:50px;height:50px;object-fit:cover;border-radius:8px;background:var(--blush);}
-  .action-btn{background:none;border:none;cursor:pointer;padding:0.3rem 0.6rem;border-radius:6px;font-size:0.8rem;font-family:'DM Sans',sans-serif;font-weight:500;}
-  .action-edit{color:var(--rose-dark);}
-  .action-edit:hover{background:var(--blush);}
-  .action-delete{color:#C62828;}
-  .action-delete:hover{background:#FFEBEE;}
-  .upload-area{border:2px dashed var(--rose);border-radius:12px;padding:2rem;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--cream);}
-  .upload-area:hover{background:var(--blush);border-color:var(--rose-dark);}
-  .upload-area p{color:var(--text-light);font-size:0.9rem;}
-  .upload-area strong{color:var(--rose-dark);}
-  .upload-preview-img{max-width:100%;max-height:160px;border-radius:10px;margin-top:0.8rem;display:none;}
-  .tag{display:inline-block;background:var(--blush);color:var(--rose-deep);border-radius:50px;font-size:0.75rem;padding:2px 10px;font-weight:500;}
-  .settings-row{display:flex;align-items:center;justify-content:space-between;padding:0.8rem 0;border-bottom:1px solid var(--border);}
-  .settings-row:last-child{border-bottom:none;}
-  .settings-val{font-size:0.9rem;color:var(--text);font-weight:500;}
-  .settings-key{font-size:0.82rem;color:var(--text-light);}
-
-  /* TOAST */
-  .toast{position:fixed;bottom:2rem;right:2rem;background:var(--rose-deep);color:white;padding:0.9rem 1.4rem;border-radius:14px;font-size:0.88rem;z-index:9999;transform:translateY(120px);opacity:0;transition:all 0.35s;max-width:300px;}
-  .toast.show{transform:translateY(0);opacity:1;}
-  .toast.success{background:#2E7D32;}
-  .toast.error{background:#C62828;}
-
-  /* WHATSAPP FLOAT */
-  .wa-float{position:fixed;bottom:2rem;left:2rem;z-index:1000;display:flex;align-items:center;gap:0.7rem;background:#25D366;color:white;padding:0.75rem 1.2rem;border-radius:50px;text-decoration:none;font-size:0.85rem;font-weight:500;box-shadow:0 4px 20px rgba(37,211,102,0.35);transition:all 0.2s;}
-  .wa-float:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(37,211,102,0.45);}
-  .wa-float svg{width:20px;height:20px;}
-
-  /* MOBILE RESPONSIVE */
-  @media(max-width:768px){
-    .hero{grid-template-columns:1fr;padding-top:80px;text-align:center;gap:2rem;}
-    .hero-text p{margin:0 auto 2rem;}
-    .hero-actions{justify-content:center;}
-    .hero-handles{justify-content:center;}
-    .hero-visual{display:none;}
-    .featured-grid{grid-template-columns:1fr;}
-    .footer-inner{grid-template-columns:1fr 1fr;}
-    .checkout-wrap{grid-template-columns:1fr;}
-    .admin-sidebar{width:200px;}
-    .admin-main{margin-left:200px;padding:1.5rem;}
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <span class="logo" onclick="showPage('home')">Bag<span>istrate</span></span>
     
-    /* HAMBURGER VISIBLE ON MOBILE */
-    .hamburger {
-      display: flex;
-    }
+    <ul class="nav-links" id="navLinks">
+      <li><a onclick="showPage('home')">Home</a></li>
+      <li><a onclick="showPage('shop')">Shop</a></li>
+      <li><a onclick="scrollToSection('featured-section');showPage('home')">Featured</a></li>
+      <li><a onclick="scrollToSection('newsletter-section');showPage('home')">Newsletter</a></li>
+    </ul>
     
-    /* NAV LINKS - hidden by default on mobile */
-    .nav-links {
-      display: none;
-      position: absolute;
-      top: 68px;
-      left: 0;
-      right: 0;
-      background: rgba(255, 248, 245, 0.98);
-      backdrop-filter: blur(14px);
-      flex-direction: column;
-      padding: 1.5rem 2rem;
-      gap: 1rem;
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
-    
-    /* NAV LINKS - show when active */
-    .nav-links.active {
-      display: flex;
-    }
-    
-    .nav-links a {
-      font-size: 1rem;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid rgba(196,102,142,0.1);
-    }
-    .nav-links a:last-child {
-      border-bottom: none;
-    }
-  }
-  </style>
-  </head>
-  <body>
-
-  <!-- NAV -->
-  <nav class="nav" id="mainNav">
-    <div class="nav-inner">
-      <span class="logo" onclick="showPage('home')">Bag<span>istrate</span></span>
+    <div class="nav-actions">
+      <!-- HAMBURGER MENU BUTTON -->
+      <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       
-      <ul class="nav-links" id="navLinks">
-        <li><a onclick="showPage('home')">Home</a></li>
-        <li><a onclick="showPage('shop')">Shop</a></li>
-        <li><a onclick="scrollToSection('featured-section');showPage('home')">Featured</a></li>
-        <li><a onclick="scrollToSection('newsletter-section');showPage('home')">Newsletter</a></li>
-      </ul>
-      
-      <div class="nav-actions">
-        <!-- HAMBURGER MENU BUTTON -->
-        <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Toggle menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        
-        <button class="cart-btn" onclick="toggleCart()">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-          <span class="cart-count" id="cartCount">0</span>
-        </button>
-        <button class="btn btn-primary" onclick="showPage('shop')">Shop Now</button>
-      </div>
-    </div>
-  </nav>
-
-  <!-- CART SIDEBAR -->
-  <div class="cart-sidebar" id="cartSidebar">
-    <div class="cart-header">
-      <h3>Your Bag</h3>
-      <button class="modal-close" onclick="toggleCart()">x</button>
-    </div>
-    <div class="cart-items" id="cartItemsEl"></div>
-    <div class="cart-footer">
-      <div class="cart-total"><span>Total</span><span id="cartTotalEl">0</span></div>
-      <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="proceedCheckout()">Proceed to Checkout</button>
+      <button class="cart-btn" onclick="toggleCart()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="btn btn-primary" onclick="showPage('shop')">Shop Now</button>
     </div>
   </div>
+</nav>
 
-  <!-- ===== HOME PAGE ===== -->
-  <div class="page active" id="page-home">
-    <section class="hero">
-      <div class="hero-text">
-        <span class="eyebrow">Premium. Curated. Iconic.</span>
-        <h1>Carry Your <em>Story</em> in Style</h1>
-        <p>From statement totes to evening clutches — Bagistrate curates luxury bags that speak your language. Handpicked. Delivered with love.</p>
-        <div class="hero-actions">
-          <button class="btn btn-primary" onclick="showPage('shop')">Shop the Collection</button>
-          <button class="btn btn-outline" onclick="scrollToSection('featured-section')">See Featured</button>
-        </div>
-        <div class="hero-handles">
-          <a href="https://www.tiktok.com/@thebagistrate" target="_blank" class="handle-link">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.16 8.16 0 004.78 1.54V6.78a4.85 4.85 0 01-1.01-.09z"/></svg>
-            @thebagistrate
+<!-- CART SIDEBAR -->
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>Your Bag</h3>
+    <button class="modal-close" onclick="toggleCart()">x</button>
+  </div>
+  <div class="cart-items" id="cartItemsEl"></div>
+  <div class="cart-footer">
+    <div class="cart-total"><span>Total</span><span id="cartTotalEl">0</span></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="proceedCheckout()">Proceed to Checkout</button>
+  </div>
+</div>
+
+<!-- ===== HOME PAGE ===== -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-text">
+      <span class="eyebrow">Premium. Curated. Iconic.</span>
+      <h1>Carry Your <em>Story</em> in Style</h1>
+      <p>From statement totes to evening clutches — Bagistrate curates luxury bags that speak your language. Handpicked. Delivered with love.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="showPage('shop')">Shop the Collection</button>
+        <button class="btn btn-outline" onclick="scrollToSection('featured-section')">See Featured</button>
+      </div>
+      <div class="hero-handles">
+        <a href="https://www.tiktok.com/@thebagistrate" target="_blank" class="handle-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.16 8.16 0 004.78 1.54V6.78a4.85 4.85 0 01-1.01-.09z"/></svg>
+          @thebagistrate
+        </a>
+        <a href="https://www.instagram.com/thebagistrate" target="_blank" class="handle-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          @thebagistrate
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-bag-wrap">
+        <div class="hero-blob"></div>
+        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80" alt="Luxury bag" class="hero-bag-img">
+        <div class="hero-badge"><p>New Arrivals</p><strong>Shop Now</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:2rem;">
+    <div class="section-inner" style="display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;">
+      <button class="btn btn-outline" onclick="filterCat('all');showPage('shop')">All Bags</button>
+      <button class="btn btn-outline" onclick="filterCat('tote');showPage('shop')">Tote Bags</button>
+      <button class="btn btn-outline" onclick="filterCat('clutch');showPage('shop')">Clutches</button>
+      <button class="btn btn-outline" onclick="filterCat('shoulder');showPage('shop')">Shoulder Bags</button>
+      <button class="btn btn-outline" onclick="filterCat('mini');showPage('shop')">Mini Bags</button>
+      <button class="btn btn-outline" onclick="filterCat('luxury');showPage('shop')">Luxury</button>
+    </div>
+  </section>
+
+  <section class="section featured-section" id="featured-section">
+    <div class="section-inner featured-grid">
+      <div class="featured-img">
+        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80" alt="Featured bag">
+      </div>
+      <div class="featured-text">
+        <span class="eyebrow">Featured Drop</span>
+        <h2>The Rose Collection — Limited Edition</h2>
+        <p>Crafted for the woman who commands attention. Our signature Rose collection merges timeless silhouettes with hand-stitched details and rich Italian-inspired leather tones.</p>
+        <ul class="features-list">
+          <li>Premium vegan leather exterior</li>
+          <li>Silk-lined interior with pockets</li>
+          <li>Gold-tone hardware accents</li>
+          <li>Adjustable chain strap included</li>
+        </ul>
+        <button class="btn btn-primary" onclick="showPage('shop')">Shop the Drop</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="eyebrow">New Arrivals</span>
+        <h2>Pieces That Turn Heads</h2>
+        <p>Every bag in our curated collection is chosen for quality, style, and that irresistible "where did you get that?" factor.</p>
+      </div>
+      <div class="products-grid" id="homeProductGrid"></div>
+      <div style="text-align:center;margin-top:2.5rem;">
+        <button class="btn btn-primary" onclick="showPage('shop')">View All Bags</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section newsletter-section" id="newsletter-section">
+    <div class="section-inner newsletter-inner">
+      <span class="eyebrow" style="color:var(--gold-light);">Stay in the Loop</span>
+      <h2>Get First Dibs on Sales and New Arrivals</h2>
+      <p>Join the Bagistrate inner circle — exclusive deals, limited drops, and style inspo delivered to your inbox.</p>
+      <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+        <input type="email" id="nlEmail" placeholder="Enter your email" required>
+        <button type="submit" class="btn">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="eyebrow">Happy Customers</span>
+        <h2>They're Obsessed. You Will Be Too.</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testi-card"><div class="testi-stars">*****</div><p class="testi-text">"The quality is absolutely insane for the price. I have gotten so many compliments on my Bagistrate tote. I have already ordered two more!"</p><div class="testi-author"><div class="testi-avatar">AC</div><div><p class="testi-name">Adaeze C.</p><p class="testi-loc">Lagos, Nigeria</p></div></div></div>
+        <div class="testi-card"><div class="testi-stars">*****</div><p class="testi-text">"Packaging was gorgeous, delivery was fast, and the bag looks exactly like the photos. This is my go-to for bags now. Period."</p><div class="testi-author"><div class="testi-avatar">FO</div><div><p class="testi-name">Fatima O.</p><p class="testi-loc">Abuja, Nigeria</p></div></div></div>
+        <div class="testi-card"><div class="testi-stars">*****</div><p class="testi-text">"I ordered the mini crossbody in blush and I am in love. Customer service was so smooth. Bagistrate really understands the assignment!"</p><div class="testi-author"><div class="testi-avatar">TN</div><div><p class="testi-name">Tola N.</p><p class="testi-loc">Port Harcourt, Nigeria</p></div></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===== SHOP PAGE ===== -->
+<div class="page" id="page-shop">
+  <section class="section" style="padding-top:120px;">
+    <div class="section-inner">
+      <div class="section-header"><span class="eyebrow">The Collection</span><h2>Shop All Bags</h2></div>
+      <div style="display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem;">
+        <button class="btn btn-outline" onclick="filterCat('all')">All</button>
+        <button class="btn btn-outline" onclick="filterCat('tote')">Tote Bags</button>
+        <button class="btn btn-outline" onclick="filterCat('clutch')">Clutches</button>
+        <button class="btn btn-outline" onclick="filterCat('shoulder')">Shoulder Bags</button>
+        <button class="btn btn-outline" onclick="filterCat('mini')">Mini Bags</button>
+        <button class="btn btn-outline" onclick="filterCat('luxury')">Luxury</button>
+      </div>
+      <div class="products-grid" id="shopProductGrid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ===== CHECKOUT PAGE ===== -->
+<div class="page" id="page-checkout">
+  <div class="checkout-wrap">
+    <div>
+      <div class="checkout-form-section">
+        <h2>Your Details</h2>
+        <form onsubmit="placeOrder(event)">
+          <div class="form-row">
+            <div class="form-group"><label>First Name</label><input type="text" id="oFirst" required></div>
+            <div class="form-group"><label>Last Name</label><input type="text" id="oLast" required></div>
+          </div>
+          <div class="form-group"><label>Email Address</label><input type="email" id="oEmail" required></div>
+          <div class="form-group"><label>Phone Number</label><input type="tel" id="oPhone" required></div>
+          <div class="form-group"><label>Delivery Address</label><textarea id="oAddress" rows="3" required></textarea></div>
+          <div class="form-group"><label>State / City</label><input type="text" id="oCity" required></div>
+          <div class="bank-details-box" id="bankDetailsBox">
+            <h4>Payment Instructions</h4>
+            <p style="font-size:0.82rem;color:var(--text-mid);margin-bottom:0.8rem;">Make a bank transfer to the details below, then upload your proof of payment.</p>
+            <div class="bank-row"><span>Bank Name</span><strong id="dispBank">Not configured</strong></div>
+            <div class="bank-row"><span>Account Name</span><strong id="dispAccName">Not configured</strong></div>
+            <div class="bank-row"><span>Account Number</span><strong id="dispAccNum">Not configured</strong></div>
+            <div class="bank-row"><span>Amount to Pay</span><strong id="dispAmount">0</strong></div>
+          </div>
+          <div class="form-group">
+            <label>Upload Payment Proof</label>
+            <div class="upload-proof" onclick="document.getElementById('proofFile').click()">
+              <p>Click to upload from your device — JPG, PNG or PDF</p>
+              <img id="proofPreviewImg" class="proof-preview">
+            </div>
+            <input type="file" id="proofFile" accept="image/*,.pdf" style="display:none" onchange="previewProof(this)">
+          </div>
+          <a href="https://wa.me/2347019309996?text=Hi%2C%20I%20just%20placed%20an%20order%20on%20Bagistrate%20and%20need%20to%20confirm%20my%20payment." target="_blank" class="whatsapp-confirm">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Payment delayed? Confirm via WhatsApp
           </a>
-          <a href="https://www.instagram.com/thebagistrate" target="_blank" class="handle-link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-            @thebagistrate
-          </a>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="hero-bag-wrap">
-          <div class="hero-blob"></div>
-          <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80" alt="Luxury bag" class="hero-bag-img">
-          <div class="hero-badge"><p>New Arrivals</p><strong>Shop Now</strong></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" style="padding-top:2rem;">
-      <div class="section-inner" style="display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;">
-        <button class="btn btn-outline" onclick="filterCat('all');showPage('shop')">All Bags</button>
-        <button class="btn btn-outline" onclick="filterCat('tote');showPage('shop')">Tote Bags</button>
-        <button class="btn btn-outline" onclick="filterCat('clutch');showPage('shop')">Clutches</button>
-        <button class="btn btn-outline" onclick="filterCat('shoulder');showPage('shop')">Shoulder Bags</button>
-        <button class="btn btn-outline" onclick="filterCat('mini');showPage('shop')">Mini Bags</button>
-        <button class="btn btn-outline" onclick="filterCat('luxury');showPage('shop')">Luxury</button>
-      </div>
-    </section>
-
-    <section class="section featured-section" id="featured-section">
-      <div class="section-inner featured-grid">
-        <div class="featured-img">
-          <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80" alt="Featured bag">
-        </div>
-        <div class="featured-text">
-          <span class="eyebrow">Featured Drop</span>
-          <h2>The Rose Collection — Limited Edition</h2>
-          <p>Crafted for the woman who commands attention. Our signature Rose collection merges timeless silhouettes with hand-stitched details and rich Italian-inspired leather tones.</p>
-          <ul class="features-list">
-            <li>Premium vegan leather exterior</li>
-            <li>Silk-lined interior with pockets</li>
-            <li>Gold-tone hardware accents</li>
-            <li>Adjustable chain strap included</li>
-          </ul>
-          <button class="btn btn-primary" onclick="showPage('shop')">Shop the Drop</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-inner">
-        <div class="section-header">
-          <span class="eyebrow">New Arrivals</span>
-          <h2>Pieces That Turn Heads</h2>
-          <p>Every bag in our curated collection is chosen for quality, style, and that irresistible "where did you get that?" factor.</p>
-        </div>
-        <div class="products-grid" id="homeProductGrid"></div>
-        <div style="text-align:center;margin-top:2.5rem;">
-          <button class="btn btn-primary" onclick="showPage('shop')">View All Bags</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section newsletter-section" id="newsletter-section">
-      <div class="section-inner newsletter-inner">
-        <span class="eyebrow" style="color:var(--gold-light);">Stay in the Loop</span>
-        <h2>Get First Dibs on Sales and New Arrivals</h2>
-        <p>Join the Bagistrate inner circle — exclusive deals, limited drops, and style inspo delivered to your inbox.</p>
-        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
-          <input type="email" id="nlEmail" placeholder="Enter your email" required>
-          <button type="submit" class="btn">Subscribe</button>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.5rem;padding:0.9rem;">Place Order</button>
         </form>
       </div>
-    </section>
-
-    <section class="section">
-      <div class="section-inner">
-        <div class="section-header">
-          <span class="eyebrow">Happy Customers</span>
-          <h2>They're Obsessed. You Will Be Too.</h2>
-        </div>
-        <div class="testimonials-grid">
-          <div class="testi-card"><div class="testi-stars">*****</div><p class="testi-text">"The quality is absolutely insane for the price. I have gotten so many compliments on my Bagistrate tote. I have already ordered two more!"</p><div class="testi-author"><div class="testi-avatar">AC</div><div><p class="testi-name">Adaeze C.</p><p class="testi-loc">Lagos, Nigeria</p></div></div></div>
-          <div class="testi-card"><div class="testi-stars">*****</div><p class="testi-text">"Packaging was gorgeous, delivery was fast, and the bag looks exactly like the photos. This is my go-to for bags now. Period."</p><div class="testi-author"><div class="testi-avatar">FO</div><div><p class="testi-name">Fatima O.</p><p class="testi-loc">Abuja, Nigeria</p></div></div></div>
-          <div class="testi-card"><div class="testi-stars">*****</div><p class="testi-text">"I ordered the mini crossbody in blush and I am in love. Customer service was so smooth. Bagistrate really understands the assignment!"</p><div class="testi-author"><div class="testi-avatar">TN</div><div><p class="testi-name">Tola N.</p><p class="testi-loc">Port Harcourt, Nigeria</p></div></div></div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- ===== SHOP PAGE ===== -->
-  <div class="page" id="page-shop">
-    <section class="section" style="padding-top:120px;">
-      <div class="section-inner">
-        <div class="section-header"><span class="eyebrow">The Collection</span><h2>Shop All Bags</h2></div>
-        <div style="display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem;">
-          <button class="btn btn-outline" onclick="filterCat('all')">All</button>
-          <button class="btn btn-outline" onclick="filterCat('tote')">Tote Bags</button>
-          <button class="btn btn-outline" onclick="filterCat('clutch')">Clutches</button>
-          <button class="btn btn-outline" onclick="filterCat('shoulder')">Shoulder Bags</button>
-          <button class="btn btn-outline" onclick="filterCat('mini')">Mini Bags</button>
-          <button class="btn btn-outline" onclick="filterCat('luxury')">Luxury</button>
-        </div>
-        <div class="products-grid" id="shopProductGrid"></div>
-      </div>
-    </section>
-  </div>
-
-  <!-- ===== CHECKOUT PAGE ===== -->
-  <div class="page" id="page-checkout">
-    <div class="checkout-wrap">
-      <div>
-        <div class="checkout-form-section">
-          <h2>Your Details</h2>
-          <form onsubmit="placeOrder(event)">
-            <div class="form-row">
-              <div class="form-group"><label>First Name</label><input type="text" id="oFirst" required></div>
-              <div class="form-group"><label>Last Name</label><input type="text" id="oLast" required></div>
-            </div>
-            <div class="form-group"><label>Email Address</label><input type="email" id="oEmail" required></div>
-            <div class="form-group"><label>Phone Number</label><input type="tel" id="oPhone" required></div>
-            <div class="form-group"><label>Delivery Address</label><textarea id="oAddress" rows="3" required></textarea></div>
-            <div class="form-group"><label>State / City</label><input type="text" id="oCity" required></div>
-            <div class="bank-details-box" id="bankDetailsBox">
-              <h4>Payment Instructions</h4>
-              <p style="font-size:0.82rem;color:var(--text-mid);margin-bottom:0.8rem;">Make a bank transfer to the details below, then upload your proof of payment.</p>
-              <div class="bank-row"><span>Bank Name</span><strong id="dispBank">Not configured</strong></div>
-              <div class="bank-row"><span>Account Name</span><strong id="dispAccName">Not configured</strong></div>
-              <div class="bank-row"><span>Account Number</span><strong id="dispAccNum">Not configured</strong></div>
-              <div class="bank-row"><span>Amount to Pay</span><strong id="dispAmount">0</strong></div>
-            </div>
-            <div class="form-group">
-              <label>Upload Payment Proof</label>
-              <div class="upload-proof" onclick="document.getElementById('proofFile').click()">
-                <p>Click to upload from your device — JPG, PNG or PDF</p>
-                <img id="proofPreviewImg" class="proof-preview">
-              </div>
-              <input type="file" id="proofFile" accept="image/*,.pdf" style="display:none" onchange="previewProof(this)">
-            </div>
-            <a href="https://wa.me/2347019309996?text=Hi%2C%20I%20just%20placed%20an%20order%20on%20Bagistrate%20and%20need%20to%20confirm%20my%20payment." target="_blank" class="whatsapp-confirm">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Payment delayed? Confirm via WhatsApp
-            </a>
-            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.5rem;padding:0.9rem;">Place Order</button>
-          </form>
-        </div>
-      </div>
-      <div>
-        <div class="order-summary">
-          <h3>Order Summary</h3>
-          <div id="summaryItemsEl"></div>
-          <div class="summary-total"><span>Total</span><span id="summaryTotalEl">0</span></div>
-        </div>
+    </div>
+    <div>
+      <div class="order-summary">
+        <h3>Order Summary</h3>
+        <div id="summaryItemsEl"></div>
+        <div class="summary-total"><span>Total</span><span id="summaryTotalEl">0</span></div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- ===== ORDER SUCCESS ===== -->
-  <div class="page" id="page-success">
-    <div class="success-wrap">
-      <div class="success-icon-mark">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <h2>Order Placed!</h2>
-      <p>Thank you, <strong id="successNameEl">beautiful</strong>! Your order has been received. We have sent a confirmation to your email.<br><br>Once your payment is verified, your bag will be on its way. If you need to confirm payment quickly, use the button below.</p>
-      <br>
-      <a href="https://wa.me/2347019309996?text=Hi%2C%20I%20just%20placed%20an%20order%20on%20Bagistrate%20and%20would%20like%20to%20confirm%20my%20payment." target="_blank" class="whatsapp-confirm" style="justify-content:center;margin-bottom:1.5rem;">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Confirm Payment via WhatsApp
-      </a>
-      <button class="btn btn-outline" onclick="showPage('home')">Back to Home</button>
+<!-- ===== ORDER SUCCESS ===== -->
+<div class="page" id="page-success">
+  <div class="success-wrap">
+    <div class="success-icon-mark">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h2>Order Placed!</h2>
+    <p>Thank you, <strong id="successNameEl">beautiful</strong>! Your order has been received. We have sent a confirmation to your email.<br><br>Once your payment is verified, your bag will be on its way. If you need to confirm payment quickly, use the button below.</p>
+    <br>
+    <a href="https://wa.me/2347019309996?text=Hi%2C%20I%20just%20placed%20an%20order%20on%20Bagistrate%20and%20would%20like%20to%20confirm%20my%20payment." target="_blank" class="whatsapp-confirm" style="justify-content:center;margin-bottom:1.5rem;">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Confirm Payment via WhatsApp
+    </a>
+    <button class="btn btn-outline" onclick="showPage('home')">Back to Home</button>
+  </div>
+</div>
+
+<!-- ===== ADMIN LOGIN ===== -->
+<div class="page" id="page-admin-login">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="brand">Bag<span>istrate</span></div>
+      <h2>Admin Login</h2>
+      <p class="sub">Restricted access — authorised personnel only</p>
+      <div class="auth-error" id="loginError"></div>
+      <div class="form-group"><label>Email Address</label><input type="email" id="loginEmail" style="width:100%;" placeholder="Enter your email"></div>
+      <div class="form-group"><label>Password</label><input type="password" id="loginPwd" style="width:100%;" placeholder="Enter your password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.3rem;" onclick="doLogin()">Log In</button>
     </div>
   </div>
+</div>
 
-  <!-- ===== ADMIN LOGIN ===== -->
-  <div class="page" id="page-admin-login">
-    <div class="auth-wrap">
-      <div class="auth-card">
-        <div class="brand">Bag<span>istrate</span></div>
-        <h2>Admin Login</h2>
-        <p class="sub">Restricted access — authorised personnel only</p>
-        <div class="auth-error" id="loginError"></div>
-        <div class="form-group"><label>Email Address</label><input type="email" id="loginEmail" style="width:100%;" placeholder="blessingmu321@gmail.com"></div>
-        <div class="form-group"><label>Password</label><input type="password" id="loginPwd" style="width:100%;" placeholder="Enter your password" onkeydown="if(event.key==='Enter')doLogin()"></div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.3rem;" onclick="doLogin()">Log In</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== ADMIN PANEL ===== -->
-  <div class="page" id="page-admin">
-    <div class="admin-wrap">
-      <aside class="admin-sidebar">
-        <div class="admin-logo">
-          <p>Bagistrate</p>
-          <small>Admin Panel</small>
-        </div>
-        <button class="admin-nav-link active" onclick="adminTab('dashboard',this)"><span class="nav-icon">+</span> Dashboard</button>
-        <button class="admin-nav-link" onclick="adminTab('orders',this)"><span class="nav-icon">-</span> Orders</button>
-        <button class="admin-nav-link" onclick="adminTab('products',this)"><span class="nav-icon">~</span> Products</button>
-        <button class="admin-nav-link" onclick="adminTab('newsletter',this)"><span class="nav-icon">@</span> Newsletter</button>
-        <button class="admin-nav-link" onclick="adminTab('settings',this)"><span class="nav-icon">#</span> Settings</button>
-        <div class="admin-logout-btn">
-          <button class="admin-nav-link" onclick="adminLogout()"><span class="nav-icon">x</span> Log Out</button>
-        </div>
-      </aside>
-
-      <main class="admin-main">
-        <div class="admin-topbar">
-          <h1 id="adminTitle">Dashboard</h1>
-          <span class="tag" id="adminUserTag">Admin</span>
-        </div>
-
-        <!-- DASHBOARD -->
-        <div class="admin-section active" id="admin-dashboard">
-          <div class="stats-grid">
-            <div class="stat-card"><div class="stat-label">Total Orders</div><div class="stat-value" id="statOrders">0</div><div class="stat-sub">All time</div></div>
-            <div class="stat-card"><div class="stat-label">Revenue</div><div class="stat-value" id="statRevenue">0</div><div class="stat-sub">Confirmed orders</div></div>
-            <div class="stat-card"><div class="stat-label">Products</div><div class="stat-value" id="statProducts">0</div><div class="stat-sub">In catalogue</div></div>
-            <div class="stat-card"><div class="stat-label">Subscribers</div><div class="stat-value" id="statSubs">0</div><div class="stat-sub">Newsletter list</div></div>
-          </div>
-          <div class="admin-card">
-            <h3>Recent Orders</h3>
-            <table class="admin-table">
-              <thead><tr><th>Customer</th><th>Items</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
-              <tbody id="dashOrdersBody"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- ORDERS -->
-        <div class="admin-section" id="admin-orders">
-          <div class="admin-card">
-            <h3>All Orders</h3>
-            <table class="admin-table">
-              <thead><tr><th>Order ID</th><th>Customer</th><th>Email</th><th>Items</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
-              <tbody id="ordersBody"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- PRODUCTS -->
-        <div class="admin-section" id="admin-products">
-          <div class="admin-card">
-            <h3>Add New Product</h3>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
-              <div class="form-group"><label>Product Name</label><input type="text" id="newPName" style="width:100%;"></div>
-              <div class="form-group"><label>Category</label>
-                <select id="newPCat" style="width:100%;">
-                  <option value="tote">Tote Bag</option>
-                  <option value="clutch">Clutch</option>
-                  <option value="shoulder">Shoulder Bag</option>
-                  <option value="mini">Mini Bag</option>
-                  <option value="luxury">Luxury</option>
-                </select>
-              </div>
-              <div class="form-group"><label>Price (NGN)</label><input type="number" id="newPPrice" style="width:100%;"></div>
-              <div class="form-group"><label>Original / Slash Price (NGN) — optional</label><input type="number" id="newPOldPrice" style="width:100%;"></div>
-              <div class="form-group" style="grid-column:1/-1;"><label>Description</label><textarea id="newPDesc" rows="2" style="width:100%;"></textarea></div>
-              <div class="form-group" style="grid-column:1/-1;">
-                <label>Product Image — upload from your device</label>
-                <div class="upload-area" onclick="document.getElementById('newPImg').click()">
-                  <p><strong>Click to upload image</strong> — JPG, PNG, WEBP</p>
-                  <img id="newPImgPreview" class="upload-preview-img">
-                </div>
-                <input type="file" id="newPImg" accept="image/*" style="display:none" onchange="previewNewProdImg(this)">
-              </div>
-            </div>
-            <button class="btn btn-primary" style="margin-top:1rem;" onclick="addProduct()">Add Product</button>
-          </div>
-          <div class="admin-card">
-            <h3>Manage Products</h3>
-            <table class="admin-table">
-              <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Actions</th></tr></thead>
-              <tbody id="productsBody"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- NEWSLETTER -->
-        <div class="admin-section" id="admin-newsletter">
-          <div class="admin-card">
-            <h3>Send Sales Alert</h3>
-            <div class="form-group"><label>Subject Line</label><input type="text" id="nlSubject" placeholder="e.g. Exclusive Sale — 30% Off Everything!" style="width:100%;"></div>
-            <div class="form-group"><label>Message</label><textarea id="nlBody" rows="6" placeholder="Write your newsletter message here..." style="width:100%;"></textarea></div>
-            <p style="font-size:0.83rem;color:var(--text-mid);margin-bottom:1rem;">This will be sent to all <strong id="nlSubCountEl">0</strong> subscribers.</p>
-            <button class="btn btn-primary" onclick="sendNewsletter()">Send Newsletter</button>
-          </div>
-          <div class="admin-card">
-            <h3>Subscriber List</h3>
-            <table class="admin-table">
-              <thead><tr><th>#</th><th>Email</th><th>Date Subscribed</th><th>Action</th></tr></thead>
-              <tbody id="subsBody"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- SETTINGS -->
-        <div class="admin-section" id="admin-settings">
-          <div class="admin-card">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;">
-              <h3 style="margin-bottom:0;">Bank Account Details</h3>
-              <button class="action-btn action-delete" onclick="clearBankDetails()" id="clearBankBtn" style="display:none;">Remove</button>
-            </div>
-            <div id="bankSetForm">
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
-                <div class="form-group"><label>Bank Name</label><input type="text" id="setBankName" placeholder="e.g. GTBank" style="width:100%;"></div>
-                <div class="form-group"><label>Account Name</label><input type="text" id="setAccName" placeholder="e.g. The Bagistrate Store" style="width:100%;"></div>
-                <div class="form-group"><label>Account Number</label><input type="text" id="setAccNum" placeholder="0123456789" style="width:100%;"></div>
-              </div>
-              <button class="btn btn-primary" onclick="saveBankDetails()">Save Bank Details</button>
-            </div>
-            <div id="bankSetDisplay" style="display:none;">
-              <div class="settings-row"><span class="settings-key">Bank Name</span><span class="settings-val" id="dspBankName">—</span></div>
-              <div class="settings-row"><span class="settings-key">Account Name</span><span class="settings-val" id="dspAccName">—</span></div>
-              <div class="settings-row"><span class="settings-key">Account Number</span><span class="settings-val" id="dspAccNum">—</span></div>
-            </div>
-          </div>
-
-          <div class="admin-card">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;">
-              <h3 style="margin-bottom:0;">Order Notification Email</h3>
-              <button class="action-btn action-delete" onclick="clearNotifEmail()" id="clearEmailBtn" style="display:none;">Remove</button>
-            </div>
-            <p style="font-size:0.85rem;color:var(--text-mid);margin-bottom:1rem;">Every new order notification will be logged to console using this email.</p>
-            <div id="emailSetForm">
-              <div class="form-group"><label>Email Address</label><input type="email" id="setAdminEmail" placeholder="you@email.com" style="width:100%;"></div>
-              <button class="btn btn-primary" onclick="saveAdminEmail()">Save Email</button>
-            </div>
-            <div id="emailSetDisplay" style="display:none;">
-              <div class="settings-row"><span class="settings-key">Notification Email</span><span class="settings-val" id="dspAdminEmail">—</span></div>
-            </div>
-          </div>
-
-          <div class="admin-card">
-            <h3>Change Admin Password</h3>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
-              <div class="form-group"><label>Current Password</label><input type="password" id="curPwd" style="width:100%;"></div>
-              <div style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
-                <div class="form-group"><label>New Password</label><input type="password" id="changePwd1" style="width:100%;"></div>
-                <div class="form-group"><label>Confirm New Password</label><input type="password" id="changePwd2" style="width:100%;"></div>
-              </div>
-            </div>
-            <button class="btn btn-primary" onclick="changeAdminPassword()">Update Password</button>
-          </div>
-        </div>
-
-      </main>
-    </div>
-  </div>
-
-  <!-- PRODUCT DETAIL MODAL -->
-  <div class="modal-overlay" id="productModal">
-    <div class="modal">
-      <button class="modal-close" onclick="closeModal('productModal')">x</button>
-      <img id="modalImg" src="" alt="Product" class="modal-prod-img">
-      <h3 id="modalName"></h3>
-      <div class="product-detail-price" id="modalPrice"></div>
-      <p id="modalDesc" style="color:var(--text-mid);font-size:0.92rem;line-height:1.7;margin-bottom:1rem;"></p>
-      <div class="qty-wrap">
-        <button class="qty-btn" onclick="changeQty(-1)">-</button>
-        <span class="qty-display" id="modalQtyEl">1</span>
-        <button class="qty-btn" onclick="changeQty(1)">+</button>
-      </div>
-      <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="addModalToCart()">Add to Bag</button>
-    </div>
-  </div>
-
-  <!-- EDIT PRODUCT MODAL -->
-  <div class="modal-overlay" id="editModal">
-    <div class="modal">
-      <button class="modal-close" onclick="closeModal('editModal')">x</button>
-      <h3 style="margin-bottom:1.5rem;">Edit Product</h3>
-      <input type="hidden" id="editProdIdx">
-      <div class="form-group"><label>Product Name</label><input type="text" id="editName" style="width:100%;"></div>
-      <div class="form-group"><label>Price (NGN)</label><input type="number" id="editPrice" style="width:100%;"></div>
-      <div class="form-group"><label>Original Price (NGN)</label><input type="number" id="editOldPrice" style="width:100%;"></div>
-      <div class="form-group"><label>Description</label><textarea id="editDesc" rows="3" style="width:100%;"></textarea></div>
-      <div class="form-group">
-        <label>Replace Image — optional</label>
-        <div class="upload-area" onclick="document.getElementById('editProdImg').click()">
-          <p><strong>Upload new image</strong> from device</p>
-          <img id="editImgPreview" class="upload-preview-img">
-        </div>
-        <input type="file" id="editProdImg" accept="image/*" style="display:none" onchange="previewEditImg(this)">
-      </div>
-      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem;" onclick="saveEditProduct()">Save Changes</button>
-    </div>
-  </div>
-
-  <!-- TOAST -->
-  <div class="toast" id="toast"></div>
-
-  <!-- WHATSAPP FLOAT -->
-  <a href="https://wa.me/2347019309996?text=Hi%20Bagistrate%2C%20I%20need%20help%20with%20my%20order!" target="_blank" class="wa-float" id="waFloat">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    Chat with us
-  </a>
-
-  <!-- FOOTER -->
-  <footer id="mainFooter">
-    <div class="footer-inner">
-      <div>
-        <div class="footer-logo">Bag<span>istrate</span></div>
-        <p>Your destination for premium, curated bags. We believe every woman deserves to carry something beautiful.</p>
-        <div class="footer-social">
-          <a href="https://www.tiktok.com/@thebagistrate" target="_blank" class="social-icon" title="TikTok">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.16 8.16 0 004.78 1.54V6.78a4.85 4.85 0 01-1.01-.09z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/thebagistrate" target="_blank" class="social-icon" title="Instagram">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-          </a>
-        </div>
-      </div>
-      <div>
-        <h4>Shop</h4>
-        <a onclick="filterCat('tote');showPage('shop')">Tote Bags</a>
-        <a onclick="filterCat('clutch');showPage('shop')">Clutches</a>
-        <a onclick="filterCat('shoulder');showPage('shop')">Shoulder Bags</a>
-        <a onclick="filterCat('mini');showPage('shop')">Mini Bags</a>
-        <a onclick="filterCat('luxury');showPage('shop')">Luxury</a>
-      </div>
-      <div>
-        <h4>Help</h4>
-        <a href="#">Delivery Info</a>
-        <a href="#">Returns Policy</a>
-        <a href="#">Size Guide</a>
-        <a href="https://wa.me/2347019309996" target="_blank">WhatsApp Us</a>
-      </div>
-      <div>
-        <h4>Follow Us</h4>
-        <a href="https://www.tiktok.com/@thebagistrate" target="_blank">TikTok @thebagistrate</a>
-        <a href="https://www.instagram.com/thebagistrate" target="_blank">Instagram @thebagistrate</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>2025 Bagistrate. All rights reserved.</p>
-      <p style="margin-top:0.4rem;"><span onclick="goAdminEntry()" style="color:rgba(255,255,255,0.15);font-size:0.7rem;cursor:pointer;user-select:none;">Admin</span></p>
-    </div>
-  </footer>
-
-  <script>
-  // ============================================================
-  // ADMIN CREDENTIALS — only these work
-  // ============================================================
-  const ADMIN_EMAIL = 'blessingmu321@gmail.com';
-  const ADMIN_PASSWORD = 'Omowumi19';
-
-  // ============================================================
-  // HAMBURGER MENU TOGGLE
-  // ============================================================
-  function toggleMenu() {
-    const navLinks = document.getElementById('navLinks');
-    const hamburger = document.getElementById('hamburgerBtn');
-    navLinks.classList.toggle('active');
-    hamburger.classList.toggle('active');
-  }
-
-  // Close menu when a link is clicked
-  document.querySelectorAll('#navLinks a').forEach(link => {
-    link.addEventListener('click', function() {
-      document.getElementById('navLinks').classList.remove('active');
-      document.getElementById('hamburgerBtn').classList.remove('active');
-    });
-  });
-
-  // Close menu when clicking outside
-  document.addEventListener('click', function(e) {
-    const nav = document.getElementById('mainNav');
-    const hamburger = document.getElementById('hamburgerBtn');
-    if (!nav.contains(e.target)) {
-      document.getElementById('navLinks')?.classList.remove('active');
-      hamburger?.classList.remove('active');
-    }
-  });
-
-  // ============================================================
-  // STATE — all persisted in localStorage
-  // ============================================================
-  function load(key, fallback) {
-    try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch(e) { return fallback; }
-  }
-  function save(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
-
-  const DEFAULT_PRODUCTS = [
-    { id:1, name:'Bella Tote', cat:'tote', price:28500, oldPrice:35000, desc:'A roomy, structured tote in premium vegan leather. Perfect for work or weekend errands.', img:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80', badge:'Bestseller' },
-    { id:2, name:'Rose Mini Bag', cat:'mini', price:18000, oldPrice:22000, desc:'Chic mini crossbody with gold chain strap. Available in blush pink and champagne.', img:'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&q=80', badge:'New' },
-    { id:3, name:'La Femme Clutch', cat:'clutch', price:15500, oldPrice:null, desc:'Elegant envelope clutch in buttery soft faux-suede. Evenings just got more glamorous.', img:'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=400&q=80', badge:null },
-    { id:4, name:'Zara Shoulder Bag', cat:'shoulder', price:24000, oldPrice:29500, desc:'Classic structured shoulder bag with detachable strap and signature gold clasp.', img:'https://images.unsplash.com/photo-1591561954557-26941169b49e?w=400&q=80', badge:'Sale' },
-    { id:5, name:'Luxe Croc Tote', cat:'luxury', price:55000, oldPrice:68000, desc:'Statement croc-embossed luxury tote. Limited edition — only 10 pieces available.', img:'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&q=80', badge:'Limited' },
-    { id:6, name:'Pearl Chain Mini', cat:'mini', price:16500, oldPrice:null, desc:'Adorable pearl-handle mini bag with satin finish. The ultimate going-out accessory.', img:'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=400&q=80', badge:'New' },
-  ];
-
-  function getProducts()    { return load('bg_products', DEFAULT_PRODUCTS); }
-  function getOrders()      { return load('bg_orders', []); }
-  function getSubscribers() { return load('bg_subs', []); }
-  function getSettings()    { return load('bg_settings', {}); }
-  function getCart()        { return load('bg_cart', []); }
-
-  function setProducts(v)    { save('bg_products', v); }
-  function setOrders(v)      { save('bg_orders', v); }
-  function setSubscribers(v) { save('bg_subs', v); }
-  function setSettings(v)    { save('bg_settings', v); }
-  function setCart(v)        { save('bg_cart', v); }
-
-  let modalProd = null;
-  let modalQtyVal = 1;
-  let editImgData = null;
-  let currentFilter = 'all';
-
-  // ============================================================
-  // PAGE ROUTING
-  // ============================================================
-  function showPage(p) {
-    document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-    const pg = document.getElementById('page-' + p);
-    if (pg) pg.classList.add('active');
-    const isAdmin = (p === 'admin' || p === 'admin-login' || p === 'admin-register' || p === 'admin-forgot');
-    document.getElementById('mainNav').style.display    = isAdmin ? 'none' : '';
-    document.getElementById('mainFooter').style.display = isAdmin ? 'none' : '';
-    document.getElementById('waFloat').style.display    = isAdmin ? 'none' : '';
-    window.scrollTo(0, 0);
-    if (p === 'home')    { renderHomeProducts(); }
-    if (p === 'shop')    { renderShopProducts(); }
-    if (p === 'checkout'){ renderCheckoutPage(); }
-    if (p === 'admin')   { renderAdminDashboard(); }
-  }
-  function scrollToSection(id) {
-    setTimeout(() => { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 100);
-  }
-  function goAdminEntry() {
-    showPage('admin-login');
-  }
-
-  // ============================================================
-  // PRODUCTS — storefront
-  // ============================================================
-  function fmtPrice(p) { return '\u20a6' + p.toLocaleString(); }
-
-  function buildProductCard(p) {
-    const div = document.createElement('div');
-    div.className = 'product-card';
-    div.innerHTML = `
-      <div class="product-img-wrap">
-        <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.opacity=0">
-        ${p.badge ? `<span class="product-badge-tag">${p.badge}</span>` : ''}
-      </div>
-      <div class="product-info">
-        <div class="product-name">${p.name}</div>
-        <div class="product-desc-short">${p.desc}</div>
-        <div class="product-footer">
-          <div class="product-price">${p.oldPrice ? `<del>${fmtPrice(p.oldPrice)}</del>` : ''}${fmtPrice(p.price)}</div>
-          <button class="add-to-cart-btn" onclick="openProductModal(${p.id})">Quick Add</button>
-        </div>
-      </div>`;
-    return div;
-  }
-
-  function renderHomeProducts() {
-    const g = document.getElementById('homeProductGrid');
-    if (!g) return;
-    g.innerHTML = '';
-    getProducts().slice(0, 3).forEach(p => g.appendChild(buildProductCard(p)));
-  }
-  function filterCat(f) { currentFilter = f; renderShopProducts(); }
-  function renderShopProducts() {
-    const g = document.getElementById('shopProductGrid');
-    if (!g) return;
-    g.innerHTML = '';
-    const list = currentFilter === 'all' ? getProducts() : getProducts().filter(p => p.cat === currentFilter);
-    if (!list.length) { g.innerHTML = '<p style="text-align:center;color:var(--text-light);grid-column:1/-1;padding:3rem;">No bags in this category yet.</p>'; return; }
-    list.forEach(p => g.appendChild(buildProductCard(p)));
-  }
-
-  // ============================================================
-  // PRODUCT MODAL
-  // ============================================================
-  function openProductModal(id) {
-    const p = getProducts().find(x => x.id === id);
-    if (!p) return;
-    modalProd = p; modalQtyVal = 1;
-    document.getElementById('modalImg').src = p.img;
-    document.getElementById('modalName').textContent = p.name;
-    document.getElementById('modalPrice').innerHTML = (p.oldPrice ? `<del style="color:var(--text-light);font-size:0.9rem;margin-right:0.5rem;">${fmtPrice(p.oldPrice)}</del>` : '') + fmtPrice(p.price);
-    document.getElementById('modalDesc').textContent = p.desc;
-    document.getElementById('modalQtyEl').textContent = 1;
-    document.getElementById('productModal').classList.add('open');
-  }
-  function changeQty(d) {
-    modalQtyVal = Math.max(1, modalQtyVal + d);
-    document.getElementById('modalQtyEl').textContent = modalQtyVal;
-  }
-  function addModalToCart() {
-    if (!modalProd) return;
-    addToCart(modalProd, modalQtyVal);
-    closeModal('productModal');
-  }
-  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-
-  // ============================================================
-  // CART
-  // ============================================================
-  function addToCart(p, qty) {
-    const cart = getCart();
-    const ex = cart.find(x => x.id === p.id);
-    if (ex) ex.qty += qty; else cart.push({ id: p.id, name: p.name, price: p.price, img: p.img, qty });
-    setCart(cart); updateCartCount(); showToast(p.name + ' added to bag', 'success');
-  }
-  function updateCartCount() {
-    const c = getCart().reduce((s, i) => s + i.qty, 0);
-    document.getElementById('cartCount').textContent = c;
-  }
-  function toggleCart() {
-    document.getElementById('cartSidebar').classList.toggle('open');
-    renderCartUI();
-  }
-  function renderCartUI() {
-    const cart = getCart();
-    const el = document.getElementById('cartItemsEl');
-    if (!cart.length) {
-      el.innerHTML = '<div class="empty-cart"><span class="empty-icon">[ ]</span><p>Your cart is empty.<br>Time to treat yourself!</p></div>';
-      document.getElementById('cartTotalEl').textContent = fmtPrice(0); return;
-    }
-    el.innerHTML = cart.map((i, idx) => `
-      <div class="cart-item">
-        <img class="cart-item-img" src="${i.img}" alt="${i.name}" onerror="this.style.opacity=0">
-        <div class="cart-item-info">
-          <div class="cart-item-name">${i.name}</div>
-          <div class="cart-item-price">${fmtPrice(i.price * i.qty)}</div>
-          <div class="cart-item-qty">Qty: ${i.qty}</div>
-        </div>
-        <button class="cart-item-remove" onclick="removeCartItem(${idx})">x</button>
-      </div>`).join('');
-    document.getElementById('cartTotalEl').textContent = fmtPrice(cart.reduce((s, i) => s + i.price * i.qty, 0));
-  }
-  function removeCartItem(idx) {
-    const cart = getCart(); cart.splice(idx, 1); setCart(cart);
-    updateCartCount(); renderCartUI();
-  }
-
-  // ============================================================
-  // CHECKOUT
-  // ============================================================
-  function proceedCheckout() {
-    if (!getCart().length) { showToast('Add items to your bag first'); return; }
-    document.getElementById('cartSidebar').classList.remove('open');
-    showPage('checkout');
-  }
-  function renderCheckoutPage() {
-    const s = getSettings();
-    document.getElementById('dispBank').textContent    = s.bankName || 'Not configured — contact admin';
-    document.getElementById('dispAccName').textContent = s.accName  || 'Not configured';
-    document.getElementById('dispAccNum').textContent  = s.accNum   || 'Not configured';
-    const total = getCart().reduce((s, i) => s + i.price * i.qty, 0);
-    document.getElementById('dispAmount').textContent  = fmtPrice(total);
-    const si = document.getElementById('summaryItemsEl');
-    si.innerHTML = getCart().map(i => `<div class="summary-item"><span>${i.name} x${i.qty}</span><span>${fmtPrice(i.price * i.qty)}</span></div>`).join('');
-    document.getElementById('summaryTotalEl').textContent = fmtPrice(total);
-  }
-  function previewProof(inp) {
-    if (inp.files[0]) {
-      const r = new FileReader();
-      r.onload = e => { const p = document.getElementById('proofPreviewImg'); p.src = e.target.result; p.style.display = 'block'; };
-      r.readAsDataURL(inp.files[0]);
-    }
-  }
-  function placeOrder(e) {
-    e.preventDefault();
-    const first = document.getElementById('oFirst').value;
-    const last  = document.getElementById('oLast').value;
-    const email = document.getElementById('oEmail').value;
-    const phone = document.getElementById('oPhone').value;
-    const addr  = document.getElementById('oAddress').value + ', ' + document.getElementById('oCity').value;
-    const cart  = getCart();
-    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-    const order = { id: 'BG' + Date.now(), name: first + ' ' + last, email, phone, address: addr, items: [...cart], total, status: 'pending', date: new Date().toLocaleDateString() };
-    const orders = getOrders();
-    orders.unshift(order);
-    setOrders(orders);
-    const s = getSettings();
-    if (s.adminEmail) console.log(`[ORDER NOTIFICATION] To: ${s.adminEmail}\nNew order from ${order.name} (${order.email})\nTotal: ${fmtPrice(order.total)}\nItems: ${order.items.map(i => i.name + ' x' + i.qty).join(', ')}`);
-    document.getElementById('successNameEl').textContent = first;
-    setCart([]); updateCartCount();
-    showPage('success');
-  }
-
-  // ============================================================
-  // NEWSLETTER (storefront)
-  // ============================================================
-  function subscribeNewsletter(e) {
-    e.preventDefault();
-    const email = document.getElementById('nlEmail').value.trim();
-    const subs = getSubscribers();
-    if (!subs.find(s => s.email === email)) {
-      subs.push({ email, date: new Date().toLocaleDateString() });
-      setSubscribers(subs);
-      showToast('You are in! Welcome to the Bagistrate inner circle.', 'success');
-    } else {
-      showToast('You are already subscribed.', 'success');
-    }
-    document.getElementById('nlEmail').value = '';
-  }
-
-  // ============================================================
-  // ADMIN LOGIN — hardcoded credentials
-  // ============================================================
-  function doLogin() {
-    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-    const pwd   = document.getElementById('loginPwd').value;
-    const errEl = document.getElementById('loginError');
+<!-- ===== ADMIN PANEL ===== -->
+<div class="page" id="page-admin">
+  <div class="admin-wrap">
+    <!-- ADMIN HAMBURGER BUTTON -->
+    <button class="admin-hamburger" id="adminHamburger" onclick="toggleAdminMenu()" aria-label="Toggle admin menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
     
-    // ── CHECK HARDCODED CREDENTIALS ──────────────────────────
-    if (email === ADMIN_EMAIL && pwd === ADMIN_PASSWORD) {
-      errEl.style.display = 'none';
-      document.getElementById('adminUserTag').textContent = 'Blessing Mu';
-      showPage('admin');
-      showToast('Welcome back, Blessing!', 'success');
-    } else {
-      errEl.textContent = 'Invalid email or password.';
-      errEl.style.display = 'block';
-    }
-  }
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="admin-logo">
+        <p>Bagistrate</p>
+        <small>Admin Panel</small>
+      </div>
+      <button class="admin-nav-link active" onclick="adminTab('dashboard',this)"><span class="nav-icon">+</span> Dashboard</button>
+      <button class="admin-nav-link" onclick="adminTab('orders',this)"><span class="nav-icon">-</span> Orders</button>
+      <button class="admin-nav-link" onclick="adminTab('products',this)"><span class="nav-icon">~</span> Products</button>
+      <button class="admin-nav-link" onclick="adminTab('newsletter',this)"><span class="nav-icon">@</span> Newsletter</button>
+      <button class="admin-nav-link" onclick="adminTab('settings',this)"><span class="nav-icon">#</span> Settings</button>
+      <div class="admin-logout-btn">
+        <button class="admin-nav-link" onclick="adminLogout()"><span class="nav-icon">x</span> Log Out</button>
+      </div>
+    </aside>
 
-  function adminLogout() { 
-    showPage('home');
-    showToast('Logged out successfully.', 'success');
-  }
+    <main class="admin-main" id="adminMain">
+      <div class="admin-topbar">
+        <h1 id="adminTitle">Dashboard</h1>
+        <span class="tag" id="adminUserTag">Admin</span>
+      </div>
 
-  // ============================================================
-  // ADMIN — DASHBOARD
-  // ============================================================
-  function renderAdminDashboard() {
-    const orders = getOrders();
-    const revenue = orders.filter(o => o.status === 'confirmed').reduce((s, o) => s + o.total, 0);
-    document.getElementById('statOrders').textContent   = orders.length;
-    document.getElementById('statRevenue').textContent  = fmtPrice(revenue);
-    document.getElementById('statProducts').textContent = getProducts().length;
-    document.getElementById('statSubs').textContent     = getSubscribers().length;
-    const tbody = document.getElementById('dashOrdersBody');
-    if (!orders.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-light);padding:2rem;">No orders yet.</td></tr>'; return; }
-    tbody.innerHTML = orders.slice(0, 6).map(o => `<tr>
-      <td>${o.name}</td>
-      <td>${o.items.length} item(s)</td>
-      <td>${fmtPrice(o.total)}</td>
-      <td><span class="status-badge status-${o.status}">${o.status}</span></td>
-      <td>${o.date}</td>
-    </tr>`).join('');
-  }
+      <!-- DASHBOARD -->
+      <div class="admin-section active" id="admin-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-label">Total Orders</div><div class="stat-value" id="statOrders">0</div><div class="stat-sub">All time</div></div>
+          <div class="stat-card"><div class="stat-label">Revenue</div><div class="stat-value" id="statRevenue">0</div><div class="stat-sub">Confirmed orders</div></div>
+          <div class="stat-card"><div class="stat-label">Products</div><div class="stat-value" id="statProducts">0</div><div class="stat-sub">In catalogue</div></div>
+          <div class="stat-card"><div class="stat-label">Subscribers</div><div class="stat-value" id="statSubs">0</div><div class="stat-sub">Newsletter list</div></div>
+        </div>
+        <div class="admin-card">
+          <h3>Recent Orders</h3>
+          <table class="admin-table">
+            <thead><tr><th>Customer</th><th>Items</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
+            <tbody id="dashOrdersBody"></tbody>
+          </table>
+        </div>
+      </div>
 
-  // ============================================================
-  // ADMIN — ORDERS
-  // ============================================================
-  function renderOrdersTable() {
-    const orders = getOrders();
-    const tbody = document.getElementById('ordersBody');
-    if (!orders.length) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-light);padding:2rem;">No orders yet.</td></tr>'; return; }
-    tbody.innerHTML = orders.map((o, i) => `<tr>
-      <td><small>${o.id}</small></td>
-      <td><strong>${o.name}</strong><br><small>${o.phone}</small></td>
-      <td><small>${o.email}</small></td>
-      <td style="max-width:180px;font-size:0.8rem;">${o.items.map(x => x.name).join(', ')}</td>
-      <td>${fmtPrice(o.total)}</td>
-      <td>
-        <select style="font-size:0.8rem;padding:4px 6px;border-radius:6px;border:1px solid var(--border);background:white;" onchange="updateOrderStatus(${i}, this.value)">
-          <option value="pending"   ${o.status === 'pending'   ? 'selected' : ''}>Pending</option>
-          <option value="confirmed" ${o.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
-          <option value="shipped"   ${o.status === 'shipped'   ? 'selected' : ''}>Shipped</option>
-        </select>
-      </td>
-      <td><button class="action-btn action-delete" onclick="deleteOrder(${i})">Delete</button></td>
-    </tr>`).join('');
-  }
-  function updateOrderStatus(idx, val) {
-    const orders = getOrders(); orders[idx].status = val; setOrders(orders);
-    showToast('Order status updated.', 'success');
-    renderAdminDashboard();
-  }
-  function deleteOrder(idx) {
-    if (!confirm('Delete this order? This cannot be undone.')) return;
-    const orders = getOrders(); orders.splice(idx, 1); setOrders(orders);
-    renderOrdersTable(); renderAdminDashboard(); showToast('Order deleted.');
-  }
+      <!-- ORDERS -->
+      <div class="admin-section" id="admin-orders">
+        <div class="admin-card">
+          <h3>All Orders</h3>
+          <table class="admin-table">
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Email</th><th>Items</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="ordersBody"></tbody>
+          </table>
+        </div>
+      </div>
 
-  // ============================================================
-  // ADMIN — PRODUCTS
-  // ============================================================
-  function renderProductsTable() {
-    const tbody = document.getElementById('productsBody');
-    const prods = getProducts();
-    if (!prods.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-light);padding:2rem;">No products yet.</td></tr>'; return; }
-    tbody.innerHTML = prods.map((p, i) => `<tr>
-      <td><img class="product-manage-img" src="${p.img}" alt="${p.name}" onerror="this.style.opacity=0"></td>
-      <td><strong>${p.name}</strong></td>
-      <td><span class="tag">${p.cat}</span></td>
-      <td>${fmtPrice(p.price)}</td>
-      <td>
-        <button class="action-btn action-edit" onclick="openEditProduct(${i})">Edit</button>
-        <button class="action-btn action-delete" onclick="deleteProduct(${i})">Delete</button>
-      </td>
-    </tr>`).join('');
-  }
-  function previewNewProdImg(inp) {
-    if (inp.files[0]) {
-      const r = new FileReader();
-      r.onload = e => { const img = document.getElementById('newPImgPreview'); img.src = e.target.result; img.style.display = 'block'; inp._data = e.target.result; };
-      r.readAsDataURL(inp.files[0]);
-    }
-  }
-  function addProduct() {
-    const name     = document.getElementById('newPName').value.trim();
-    const cat      = document.getElementById('newPCat').value;
-    const price    = parseInt(document.getElementById('newPPrice').value);
-    const oldPrice = parseInt(document.getElementById('newPOldPrice').value) || null;
-    const desc     = document.getElementById('newPDesc').value.trim();
-    const imgInp   = document.getElementById('newPImg');
-    const img      = imgInp._data || 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80';
-    if (!name || !price) { showToast('Please fill in at least the name and price.', 'error'); return; }
-    const prods = getProducts();
-    prods.push({ id: Date.now(), name, cat, price, oldPrice, desc, img, badge: null });
-    setProducts(prods);
-    document.getElementById('newPName').value = '';
-    document.getElementById('newPPrice').value = '';
-    document.getElementById('newPOldPrice').value = '';
-    document.getElementById('newPDesc').value = '';
-    document.getElementById('newPImgPreview').style.display = 'none';
-    imgInp._data = null;
-    renderProductsTable();
-    showToast('Product added. It is now live in the store.', 'success');
-  }
-  function openEditProduct(idx) {
-    const p = getProducts()[idx];
-    document.getElementById('editProdIdx').value  = idx;
-    document.getElementById('editName').value     = p.name;
-    document.getElementById('editPrice').value    = p.price;
-    document.getElementById('editOldPrice').value = p.oldPrice || '';
-    document.getElementById('editDesc').value     = p.desc;
-    document.getElementById('editImgPreview').style.display = 'none';
-    editImgData = null;
-    document.getElementById('editModal').classList.add('open');
-  }
-  function previewEditImg(inp) {
-    if (inp.files[0]) {
-      const r = new FileReader();
-      r.onload = e => { const img = document.getElementById('editImgPreview'); img.src = e.target.result; img.style.display = 'block'; editImgData = e.target.result; };
-      r.readAsDataURL(inp.files[0]);
-    }
-  }
-  function saveEditProduct() {
-    const idx   = parseInt(document.getElementById('editProdIdx').value);
-    const prods = getProducts();
-    prods[idx].name     = document.getElementById('editName').value;
-    prods[idx].price    = parseInt(document.getElementById('editPrice').value);
-    prods[idx].oldPrice = parseInt(document.getElementById('editOldPrice').value) || null;
-    prods[idx].desc     = document.getElementById('editDesc').value;
-    if (editImgData) prods[idx].img = editImgData;
-    setProducts(prods);
-    closeModal('editModal');
-    renderProductsTable();
-    showToast('Product updated. Changes are live in the store.', 'success');
-  }
-  function deleteProduct(idx) {
-    if (!confirm('Delete this product? It will be removed from the store immediately.')) return;
-    const prods = getProducts(); prods.splice(idx, 1); setProducts(prods);
-    renderProductsTable();
-    showToast('Product deleted from the store.', 'success');
-  }
+      <!-- PRODUCTS -->
+      <div class="admin-section" id="admin-products">
+        <div class="admin-card">
+          <h3>Add New Product</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+            <div class="form-group"><label>Product Name</label><input type="text" id="newPName" style="width:100%;"></div>
+            <div class="form-group"><label>Category</label>
+              <select id="newPCat" style="width:100%;">
+                <option value="tote">Tote Bag</option>
+                <option value="clutch">Clutch</option>
+                <option value="shoulder">Shoulder Bag</option>
+                <option value="mini">Mini Bag</option>
+                <option value="luxury">Luxury</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Price (NGN)</label><input type="number" id="newPPrice" style="width:100%;"></div>
+            <div class="form-group"><label>Original / Slash Price (NGN) — optional</label><input type="number" id="newPOldPrice" style="width:100%;"></div>
+            <div class="form-group" style="grid-column:1/-1;"><label>Description</label><textarea id="newPDesc" rows="2" style="width:100%;"></textarea></div>
+            <div class="form-group" style="grid-column:1/-1;">
+              <label>Product Image — upload from your device</label>
+              <div class="upload-area" onclick="document.getElementById('newPImg').click()">
+                <p><strong>Click to upload image</strong> — JPG, PNG, WEBP</p>
+                <img id="newPImgPreview" class="upload-preview-img">
+              </div>
+              <input type="file" id="newPImg" accept="image/*" style="display:none" onchange="previewNewProdImg(this)">
+            </div>
+          </div>
+          <button class="btn btn-primary" style="margin-top:1rem;" onclick="addProduct()">Add Product</button>
+        </div>
+        <div class="admin-card">
+          <h3>Manage Products</h3>
+          <table class="admin-table">
+            <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Actions</th></tr></thead>
+            <tbody id="productsBody"></tbody>
+          </table>
+        </div>
+      </div>
 
-  // ============================================================
-  // ADMIN — NEWSLETTER
-  // ============================================================
-  function renderSubsTable() {
-    const subs = getSubscribers();
-    document.getElementById('nlSubCountEl').textContent = subs.length;
-    const tbody = document.getElementById('subsBody');
-    if (!subs.length) { tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-light);padding:2rem;">No subscribers yet.</td></tr>'; return; }
-    tbody.innerHTML = subs.map((s, i) => `<tr>
-      <td>${i + 1}</td>
-      <td>${s.email}</td>
-      <td>${s.date}</td>
-      <td><button class="action-btn action-delete" onclick="removeSub(${i})">Remove</button></td>
-    </tr>`).join('');
-  }
-  function removeSub(idx) {
-    const subs = getSubscribers(); subs.splice(idx, 1); setSubscribers(subs);
-    renderSubsTable(); showToast('Subscriber removed.');
-  }
-  function sendNewsletter() {
-    const subj = document.getElementById('nlSubject').value.trim();
-    const body = document.getElementById('nlBody').value.trim();
-    const subs = getSubscribers();
-    if (!subj || !body) { showToast('Please fill in both subject and message.', 'error'); return; }
-    if (!subs.length) { showToast('There are no subscribers yet.'); return; }
-    console.log(`[NEWSLETTER]\nTo: ${subs.map(s => s.email).join(', ')}\nSubject: ${subj}\n\n${body}`);
-    showToast(`Newsletter sent to ${subs.length} subscriber(s).`, 'success');
-    document.getElementById('nlSubject').value = '';
-    document.getElementById('nlBody').value = '';
-  }
+      <!-- NEWSLETTER -->
+      <div class="admin-section" id="admin-newsletter">
+        <div class="admin-card">
+          <h3>Send Sales Alert</h3>
+          <div class="form-group"><label>Subject Line</label><input type="text" id="nlSubject" placeholder="e.g. Exclusive Sale — 30% Off Everything!" style="width:100%;"></div>
+          <div class="form-group"><label>Message</label><textarea id="nlBody" rows="6" placeholder="Write your newsletter message here..." style="width:100%;"></textarea></div>
+          <p style="font-size:0.83rem;color:var(--text-mid);margin-bottom:1rem;">This will be sent to all <strong id="nlSubCountEl">0</strong> subscribers.</p>
+          <button class="btn btn-primary" onclick="sendNewsletter()">Send Newsletter</button>
+        </div>
+        <div class="admin-card">
+          <h3>Subscriber List</h3>
+          <table class="admin-table">
+            <thead><tr><th>#</th><th>Email</th><th>Date Subscribed</th><th>Action</th></tr></thead>
+            <tbody id="subsBody"></tbody>
+          </table>
+        </div>
+      </div>
 
-  // ============================================================
-  // ADMIN — SETTINGS
-  // ============================================================
-  function loadSettingsUI() {
-    const s = getSettings();
-    if (s.bankName) {
-      document.getElementById('setBankName').value = s.bankName;
-      document.getElementById('setAccName').value  = s.accName || '';
-      document.getElementById('setAccNum').value   = s.accNum  || '';
-      document.getElementById('dspBankName').textContent = s.bankName;
-      document.getElementById('dspAccName').textContent  = s.accName || '';
-      document.getElementById('dspAccNum').textContent   = s.accNum  || '';
-      document.getElementById('bankSetForm').style.display    = 'none';
-      document.getElementById('bankSetDisplay').style.display = 'block';
-      document.getElementById('clearBankBtn').style.display   = 'inline-block';
-    } else {
-      document.getElementById('bankSetForm').style.display    = 'block';
-      document.getElementById('bankSetDisplay').style.display = 'none';
-      document.getElementById('clearBankBtn').style.display   = 'none';
-    }
-    if (s.adminEmail) {
-      document.getElementById('setAdminEmail').value = s.adminEmail;
-      document.getElementById('dspAdminEmail').textContent = s.adminEmail;
-      document.getElementById('emailSetForm').style.display    = 'none';
-      document.getElementById('emailSetDisplay').style.display = 'block';
-      document.getElementById('clearEmailBtn').style.display   = 'inline-block';
-    } else {
-      document.getElementById('emailSetForm').style.display    = 'block';
-      document.getElementById('emailSetDisplay').style.display = 'none';
-      document.getElementById('clearEmailBtn').style.display   = 'none';
-    }
-  }
-  function saveBankDetails() {
-    const s = getSettings();
-    const name = document.getElementById('setBankName').value.trim();
-    const accN = document.getElementById('setAccName').value.trim();
-    const accU = document.getElementById('setAccNum').value.trim();
-    if (!name || !accN || !accU) { showToast('Please fill in all bank fields.', 'error'); return; }
-    s.bankName = name; s.accName = accN; s.accNum = accU;
-    setSettings(s); loadSettingsUI();
-    showToast('Bank details saved. Customers will see these at checkout.', 'success');
-  }
-  function clearBankDetails() {
-    if (!confirm('Remove bank details? Customers will see "Not configured" at checkout.')) return;
-    const s = getSettings();
-    delete s.bankName; delete s.accName; delete s.accNum;
-    setSettings(s); loadSettingsUI();
-    showToast('Bank details removed.');
-  }
-  function saveAdminEmail() {
-    const email = document.getElementById('setAdminEmail').value.trim();
-    if (!email) { showToast('Please enter an email.', 'error'); return; }
-    const s = getSettings(); s.adminEmail = email; setSettings(s);
-    loadSettingsUI();
-    showToast('Notification email saved.', 'success');
-  }
-  function clearNotifEmail() {
-    if (!confirm('Remove notification email?')) return;
-    const s = getSettings(); delete s.adminEmail; setSettings(s);
-    loadSettingsUI(); showToast('Notification email removed.');
-  }
-  function changeAdminPassword() {
-    // This is a simple password change that only affects the hardcoded password
-    const np1  = document.getElementById('changePwd1').value;
-    const np2  = document.getElementById('changePwd2').value;
-    if (!np1 || np1.length < 6) { showToast('New password must be at least 6 characters.', 'error'); return; }
-    if (np1 !== np2) { showToast('New passwords do not match.', 'error'); return; }
-    // Since we're using hardcoded credentials, we'll store the new password in localStorage
-    save('bg_custom_password', np1);
-    document.getElementById('curPwd').value = '';
-    document.getElementById('changePwd1').value = '';
-    document.getElementById('changePwd2').value = '';
-    showToast('Password updated successfully. Use your new password next time.', 'success');
-  }
+      <!-- SETTINGS -->
+      <div class="admin-section" id="admin-settings">
+        <div class="admin-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;">
+            <h3 style="margin-bottom:0;">Bank Account Details</h3>
+            <button class="action-btn action-delete" onclick="clearBankDetails()" id="clearBankBtn" style="display:none;">Remove</button>
+          </div>
+          <div id="bankSetForm">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+              <div class="form-group"><label>Bank Name</label><input type="text" id="setBankName" placeholder="e.g. GTBank" style="width:100%;"></div>
+              <div class="form-group"><label>Account Name</label><input type="text" id="setAccName" placeholder="e.g. The Bagistrate Store" style="width:100%;"></div>
+              <div class="form-group"><label>Account Number</label><input type="text" id="setAccNum" placeholder="0123456789" style="width:100%;"></div>
+            </div>
+            <button class="btn btn-primary" onclick="saveBankDetails()">Save Bank Details</button>
+          </div>
+          <div id="bankSetDisplay" style="display:none;">
+            <div class="settings-row"><span class="settings-key">Bank Name</span><span class="settings-val" id="dspBankName">—</span></div>
+            <div class="settings-row"><span class="settings-key">Account Name</span><span class="settings-val" id="dspAccName">—</span></div>
+            <div class="settings-row"><span class="settings-key">Account Number</span><span class="settings-val" id="dspAccNum">—</span></div>
+          </div>
+        </div>
 
-  // Override the login to check for custom password
-  const originalDoLogin = doLogin;
-  doLogin = function() {
-    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-    const pwd   = document.getElementById('loginPwd').value;
-    const errEl = document.getElementById('loginError');
-    const customPwd = load('bg_custom_password', null);
-    const validPwd = customPwd || ADMIN_PASSWORD;
-    
-    if (email === ADMIN_EMAIL && pwd === validPwd) {
-      errEl.style.display = 'none';
-      document.getElementById('adminUserTag').textContent = 'Blessing Mu';
-      showPage('admin');
-      showToast('Welcome back, Blessing!', 'success');
-    } else {
-      errEl.textContent = 'Invalid email or password.';
-      errEl.style.display = 'block';
-    }
-  };
+        <div class="admin-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;">
+            <h3 style="margin-bottom:0;">Order Notification Email</h3>
+            <button class="action-btn action-delete" onclick="clearNotifEmail()" id="clearEmailBtn" style="display:none;">Remove</button>
+          </div>
+          <p style="font-size:0.85rem;color:var(--text-mid);margin-bottom:1rem;">Every new order notification will be logged to console using this email.</p>
+          <div id="emailSetForm">
+            <div class="form-group"><label>Email Address</label><input type="email" id="setAdminEmail" placeholder="you@email.com" style="width:100%;"></div>
+            <button class="btn btn-primary" onclick="saveAdminEmail()">Save Email</button>
+          </div>
+          <div id="emailSetDisplay" style="display:none;">
+            <div class="settings-row"><span class="settings-key">Notification Email</span><span class="settings-val" id="dspAdminEmail">—</span></div>
+          </div>
+        </div>
 
-  // ============================================================
-  // ADMIN TAB SWITCHER
-  // ============================================================
-  function adminTab(name, el) {
-    document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.admin-nav-link').forEach(l => l.classList.remove('active'));
-    document.getElementById('admin-' + name).classList.add('active');
-    el.classList.add('active');
-    const titles = { dashboard: 'Dashboard', orders: 'Orders', products: 'Products', newsletter: 'Newsletter', settings: 'Settings' };
-    document.getElementById('adminTitle').textContent = titles[name] || name;
-    if (name === 'dashboard')  renderAdminDashboard();
-    if (name === 'orders')     renderOrdersTable();
-    if (name === 'products')   renderProductsTable();
-    if (name === 'newsletter') renderSubsTable();
-    if (name === 'settings')   loadSettingsUI();
-  }
+        <div class="admin-card">
+          <h3>Change Admin Password</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+            <div class="form-group"><label>Current Password</label><input type="password" id="curPwd" style="width:100%;"></div>
+            <div style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+              <div class="form-group"><label>New Password</label><input type="password" id="changePwd1" style="width:100%;"></div>
+              <div class="form-group"><label>Confirm New Password</label><input type="password" id="changePwd2" style="width:100%;"></div>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="changeAdminPassword()">Update Password</button>
+        </div>
+      </div>
 
-  // ============================================================
-  // TOAST
-  // ============================================================
-  function showToast(msg, type) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = 'toast' + (type ? ' ' + type : '');
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 3200);
-  }
+    </main>
+  </div>
+</div>
 
-  // ============================================================
-  // INIT
-  // ============================================================
-  updateCartCount();
-  renderHomeProducts();
+<!-- PRODUCT DETAIL MODAL -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('productModal')">x</button>
+    <img id="modalImg" src="" alt="Product" class="modal-prod-img">
+    <h3 id="modalName"></h3>
+    <div class="product-detail-price" id="modalPrice"></div>
+    <p id="modalDesc" style="color:var(--text-mid);font-size:0.92rem;line-height:1.7;margin-bottom:1rem;"></p>
+    <div class="qty-wrap">
+      <button class="qty-btn" onclick="changeQty(-1)">-</button>
+      <span class="qty-display" id="modalQtyEl">1</span>
+      <button class="qty-btn" onclick="changeQty(1)">+</button>
+    </div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="addModalToCart()">Add to Bag</button>
+  </div>
+</div>
 
-  document.querySelectorAll('.modal-overlay').forEach(m =>
-    m.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('open'); })
-  );
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open'));
+<!-- EDIT PRODUCT MODAL -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('editModal')">x</button>
+    <h3 style="margin-bottom:1.5rem;">Edit Product</h3>
+    <input type="hidden" id="editProdIdx">
+    <div class="form-group"><label>Product Name</label><input type="text" id="editName" style="width:100%;"></div>
+    <div class="form-group"><label>Price (NGN)</label><input type="number" id="editPrice" style="width:100%;"></div>
+    <div class="form-group"><label>Original Price (NGN)</label><input type="number" id="editOldPrice" style="width:100%;"></div>
+    <div class="form-group"><label>Description</label><textarea id="editDesc" rows="3" style="width:100%;"></textarea></div>
+    <div class="form-group">
+      <label>Replace Image — optional</label>
+      <div class="upload-area" onclick="document.getElementById('editProdImg').click()">
+        <p><strong>Upload new image</strong> from device</p>
+        <img id="editImgPreview" class="upload-preview-img">
+      </div>
+      <input type="file" id="editProdImg" accept="image/*" style="display:none" onchange="previewEditImg(this)">
+    </div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem;" onclick="saveEditProduct()">Save Changes</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/2347019309996?text=Hi%20Bagistrate%2C%20I%20need%20help%20with%20my%20order!" target="_blank" class="wa-float" id="waFloat">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  Chat with us
+</a>
+
+<!-- FOOTER -->
+<footer id="mainFooter">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Bag<span>istrate</span></div>
+      <p>Your destination for premium, curated bags. We believe every woman deserves to carry something beautiful.</p>
+      <div class="footer-social">
+        <a href="https://www.tiktok.com/@thebagistrate" target="_blank" class="social-icon" title="TikTok">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.16 8.16 0 004.78 1.54V6.78a4.85 4.85 0 01-1.01-.09z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/thebagistrate" target="_blank" class="social-icon" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <a onclick="filterCat('tote');showPage('shop')">Tote Bags</a>
+      <a onclick="filterCat('clutch');showPage('shop')">Clutches</a>
+      <a onclick="filterCat('shoulder');showPage('shop')">Shoulder Bags</a>
+      <a onclick="filterCat('mini');showPage('shop')">Mini Bags</a>
+      <a onclick="filterCat('luxury');showPage('shop')">Luxury</a>
+    </div>
+    <div>
+      <h4>Help</h4>
+      <a href="#">Delivery Info</a>
+      <a href="#">Returns Policy</a>
+      <a href="#">Size Guide</a>
+      <a href="https://wa.me/2347019309996" target="_blank">WhatsApp Us</a>
+    </div>
+    <div>
+      <h4>Follow Us</h4>
+      <a href="https://www.tiktok.com/@thebagistrate" target="_blank">TikTok @thebagistrate</a>
+      <a href="https://www.instagram.com/thebagistrate" target="_blank">Instagram @thebagistrate</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>2025 Bagistrate. All rights reserved.</p>
+    <p style="margin-top:0.4rem;"><span onclick="goAdminEntry()" style="color:rgba(255,255,255,0.15);font-size:0.7rem;cursor:pointer;user-select:none;">Admin</span></p>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// ADMIN CREDENTIALS — only these work
+// ============================================================
+const ADMIN_EMAIL = 'blessingmu321@gmail.com';
+const ADMIN_PASSWORD = 'Omowumi19';
+
+// ============================================================
+// HAMBURGER MENU TOGGLE (Main Nav)
+// ============================================================
+function toggleMenu() {
+  const navLinks = document.getElementById('navLinks');
+  const hamburger = document.getElementById('hamburgerBtn');
+  navLinks.classList.toggle('active');
+  hamburger.classList.toggle('active');
+}
+
+// Close main nav menu when a link is clicked
+document.querySelectorAll('#navLinks a').forEach(link => {
+  link.addEventListener('click', function() {
+    document.getElementById('navLinks').classList.remove('active');
+    document.getElementById('hamburgerBtn').classList.remove('active');
   });
-  </script>
-  </body>
-  </html>
+});
+
+// Close main nav menu when clicking outside
+document.addEventListener('click', function(e) {
+  const nav = document.getElementById('mainNav');
+  const hamburger = document.getElementById('hamburgerBtn');
+  if (!nav.contains(e.target)) {
+    document.getElementById('navLinks')?.classList.remove('active');
+    hamburger?.classList.remove('active');
+  }
+});
+
+// ============================================================
+// ADMIN HAMBURGER TOGGLE (Admin Sidebar)
+// ============================================================
+function toggleAdminMenu() {
+  const sidebar = document.getElementById('adminSidebar');
+  const hamburger = document.getElementById('adminHamburger');
+  sidebar.classList.toggle('open');
+  hamburger.classList.toggle('active');
+}
+
+// Close admin sidebar when clicking outside
+document.addEventListener('click', function(e) {
+  const sidebar = document.getElementById('adminSidebar');
+  const hamburger = document.getElementById('adminHamburger');
+  const main = document.getElementById('adminMain');
+  
+  // Only on mobile and if sidebar is open
+  if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+    if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+      sidebar.classList.remove('open');
+      hamburger.classList.remove('active');
+    }
+  }
+});
+
+// Close admin sidebar when a nav link is clicked (mobile)
+document.querySelectorAll('.admin-nav-link').forEach(link => {
+  link.addEventListener('click', function() {
+    if (window.innerWidth <= 768) {
+      document.getElementById('adminSidebar').classList.remove('open');
+      document.getElementById('adminHamburger').classList.remove('active');
+    }
+  });
+});
+
+// ============================================================
+// STATE — all persisted in localStorage
+// ============================================================
+function load(key, fallback) {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch(e) { return fallback; }
+}
+function save(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+
+const DEFAULT_PRODUCTS = [
+  { id:1, name:'Bella Tote', cat:'tote', price:28500, oldPrice:35000, desc:'A roomy, structured tote in premium vegan leather. Perfect for work or weekend errands.', img:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80', badge:'Bestseller' },
+  { id:2, name:'Rose Mini Bag', cat:'mini', price:18000, oldPrice:22000, desc:'Chic mini crossbody with gold chain strap. Available in blush pink and champagne.', img:'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&q=80', badge:'New' },
+  { id:3, name:'La Femme Clutch', cat:'clutch', price:15500, oldPrice:null, desc:'Elegant envelope clutch in buttery soft faux-suede. Evenings just got more glamorous.', img:'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=400&q=80', badge:null },
+  { id:4, name:'Zara Shoulder Bag', cat:'shoulder', price:24000, oldPrice:29500, desc:'Classic structured shoulder bag with detachable strap and signature gold clasp.', img:'https://images.unsplash.com/photo-1591561954557-26941169b49e?w=400&q=80', badge:'Sale' },
+  { id:5, name:'Luxe Croc Tote', cat:'luxury', price:55000, oldPrice:68000, desc:'Statement croc-embossed luxury tote. Limited edition — only 10 pieces available.', img:'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&q=80', badge:'Limited' },
+  { id:6, name:'Pearl Chain Mini', cat:'mini', price:16500, oldPrice:null, desc:'Adorable pearl-handle mini bag with satin finish. The ultimate going-out accessory.', img:'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=400&q=80', badge:'New' },
+];
+
+function getProducts()    { return load('bg_products', DEFAULT_PRODUCTS); }
+function getOrders()      { return load('bg_orders', []); }
+function getSubscribers() { return load('bg_subs', []); }
+function getSettings()    { return load('bg_settings', {}); }
+function getCart()        { return load('bg_cart', []); }
+
+function setProducts(v)    { save('bg_products', v); }
+function setOrders(v)      { save('bg_orders', v); }
+function setSubscribers(v) { save('bg_subs', v); }
+function setSettings(v)    { save('bg_settings', v); }
+function setCart(v)        { save('bg_cart', v); }
+
+let modalProd = null;
+let modalQtyVal = 1;
+let editImgData = null;
+let currentFilter = 'all';
+
+// ============================================================
+// PAGE ROUTING
+// ============================================================
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  const pg = document.getElementById('page-' + p);
+  if (pg) pg.classList.add('active');
+  const isAdmin = (p === 'admin' || p === 'admin-login' || p === 'admin-register' || p === 'admin-forgot');
+  document.getElementById('mainNav').style.display    = isAdmin ? 'none' : '';
+  document.getElementById('mainFooter').style.display = isAdmin ? 'none' : '';
+  document.getElementById('waFloat').style.display    = isAdmin ? 'none' : '';
+  window.scrollTo(0, 0);
+  if (p === 'home')    { renderHomeProducts(); }
+  if (p === 'shop')    { renderShopProducts(); }
+  if (p === 'checkout'){ renderCheckoutPage(); }
+  if (p === 'admin')   { renderAdminDashboard(); }
+}
+function scrollToSection(id) {
+  setTimeout(() => { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 100);
+}
+function goAdminEntry() {
+  showPage('admin-login');
+}
+
+// ============================================================
+// PRODUCTS — storefront
+// ============================================================
+function fmtPrice(p) { return '\u20a6' + p.toLocaleString(); }
+
+function buildProductCard(p) {
+  const div = document.createElement('div');
+  div.className = 'product-card';
+  div.innerHTML = `
+    <div class="product-img-wrap">
+      <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.opacity=0">
+      ${p.badge ? `<span class="product-badge-tag">${p.badge}</span>` : ''}
+    </div>
+    <div class="product-info">
+      <div class="product-name">${p.name}</div>
+      <div class="product-desc-short">${p.desc}</div>
+      <div class="product-footer">
+        <div class="product-price">${p.oldPrice ? `<del>${fmtPrice(p.oldPrice)}</del>` : ''}${fmtPrice(p.price)}</div>
+        <button class="add-to-cart-btn" onclick="openProductModal(${p.id})">Quick Add</button>
+      </div>
+    </div>`;
+  return div;
+}
+
+function renderHomeProducts() {
+  const g = document.getElementById('homeProductGrid');
+  if (!g) return;
+  g.innerHTML = '';
+  getProducts().slice(0, 3).forEach(p => g.appendChild(buildProductCard(p)));
+}
+function filterCat(f) { currentFilter = f; renderShopProducts(); }
+function renderShopProducts() {
+  const g = document.getElementById('shopProductGrid');
+  if (!g) return;
+  g.innerHTML = '';
+  const list = currentFilter === 'all' ? getProducts() : getProducts().filter(p => p.cat === currentFilter);
+  if (!list.length) { g.innerHTML = '<p style="text-align:center;color:var(--text-light);grid-column:1/-1;padding:3rem;">No bags in this category yet.</p>'; return; }
+  list.forEach(p => g.appendChild(buildProductCard(p)));
+}
+
+// ============================================================
+// PRODUCT MODAL
+// ============================================================
+function openProductModal(id) {
+  const p = getProducts().find(x => x.id === id);
+  if (!p) return;
+  modalProd = p; modalQtyVal = 1;
+  document.getElementById('modalImg').src = p.img;
+  document.getElementById('modalName').textContent = p.name;
+  document.getElementById('modalPrice').innerHTML = (p.oldPrice ? `<del style="color:var(--text-light);font-size:0.9rem;margin-right:0.5rem;">${fmtPrice(p.oldPrice)}</del>` : '') + fmtPrice(p.price);
+  document.getElementById('modalDesc').textContent = p.desc;
+  document.getElementById('modalQtyEl').textContent = 1;
+  document.getElementById('productModal').classList.add('open');
+}
+function changeQty(d) {
+  modalQtyVal = Math.max(1, modalQtyVal + d);
+  document.getElementById('modalQtyEl').textContent = modalQtyVal;
+}
+function addModalToCart() {
+  if (!modalProd) return;
+  addToCart(modalProd, modalQtyVal);
+  closeModal('productModal');
+}
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// ============================================================
+// CART
+// ============================================================
+function addToCart(p, qty) {
+  const cart = getCart();
+  const ex = cart.find(x => x.id === p.id);
+  if (ex) ex.qty += qty; else cart.push({ id: p.id, name: p.name, price: p.price, img: p.img, qty });
+  setCart(cart); updateCartCount(); showToast(p.name + ' added to bag', 'success');
+}
+function updateCartCount() {
+  const c = getCart().reduce((s, i) => s + i.qty, 0);
+  document.getElementById('cartCount').textContent = c;
+}
+function toggleCart() {
+  document.getElementById('cartSidebar').classList.toggle('open');
+  renderCartUI();
+}
+function renderCartUI() {
+  const cart = getCart();
+  const el = document.getElementById('cartItemsEl');
+  if (!cart.length) {
+    el.innerHTML = '<div class="empty-cart"><span class="empty-icon">[ ]</span><p>Your cart is empty.<br>Time to treat yourself!</p></div>';
+    document.getElementById('cartTotalEl').textContent = fmtPrice(0); return;
+  }
+  el.innerHTML = cart.map((i, idx) => `
+    <div class="cart-item">
+      <img class="cart-item-img" src="${i.img}" alt="${i.name}" onerror="this.style.opacity=0">
+      <div class="cart-item-info">
+        <div class="cart-item-name">${i.name}</div>
+        <div class="cart-item-price">${fmtPrice(i.price * i.qty)}</div>
+        <div class="cart-item-qty">Qty: ${i.qty}</div>
+      </div>
+      <button class="cart-item-remove" onclick="removeCartItem(${idx})">x</button>
+    </div>`).join('');
+  document.getElementById('cartTotalEl').textContent = fmtPrice(cart.reduce((s, i) => s + i.price * i.qty, 0));
+}
+function removeCartItem(idx) {
+  const cart = getCart(); cart.splice(idx, 1); setCart(cart);
+  updateCartCount(); renderCartUI();
+}
+
+// ============================================================
+// CHECKOUT
+// ============================================================
+function proceedCheckout() {
+  if (!getCart().length) { showToast('Add items to your bag first'); return; }
+  document.getElementById('cartSidebar').classList.remove('open');
+  showPage('checkout');
+}
+function renderCheckoutPage() {
+  const s = getSettings();
+  document.getElementById('dispBank').textContent    = s.bankName || 'Not configured — contact admin';
+  document.getElementById('dispAccName').textContent = s.accName  || 'Not configured';
+  document.getElementById('dispAccNum').textContent  = s.accNum   || 'Not configured';
+  const total = getCart().reduce((s, i) => s + i.price * i.qty, 0);
+  document.getElementById('dispAmount').textContent  = fmtPrice(total);
+  const si = document.getElementById('summaryItemsEl');
+  si.innerHTML = getCart().map(i => `<div class="summary-item"><span>${i.name} x${i.qty}</span><span>${fmtPrice(i.price * i.qty)}</span></div>`).join('');
+  document.getElementById('summaryTotalEl').textContent = fmtPrice(total);
+}
+function previewProof(inp) {
+  if (inp.files[0]) {
+    const r = new FileReader();
+    r.onload = e => { const p = document.getElementById('proofPreviewImg'); p.src = e.target.result; p.style.display = 'block'; };
+    r.readAsDataURL(inp.files[0]);
+  }
+}
+function placeOrder(e) {
+  e.preventDefault();
+  const first = document.getElementById('oFirst').value;
+  const last  = document.getElementById('oLast').value;
+  const email = document.getElementById('oEmail').value;
+  const phone = document.getElementById('oPhone').value;
+  const addr  = document.getElementById('oAddress').value + ', ' + document.getElementById('oCity').value;
+  const cart  = getCart();
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const order = { id: 'BG' + Date.now(), name: first + ' ' + last, email, phone, address: addr, items: [...cart], total, status: 'pending', date: new Date().toLocaleDateString() };
+  const orders = getOrders();
+  orders.unshift(order);
+  setOrders(orders);
+  const s = getSettings();
+  if (s.adminEmail) console.log(`[ORDER NOTIFICATION] To: ${s.adminEmail}\nNew order from ${order.name} (${order.email})\nTotal: ${fmtPrice(order.total)}\nItems: ${order.items.map(i => i.name + ' x' + i.qty).join(', ')}`);
+  document.getElementById('successNameEl').textContent = first;
+  setCart([]); updateCartCount();
+  showPage('success');
+}
+
+// ============================================================
+// NEWSLETTER (storefront)
+// ============================================================
+function subscribeNewsletter(e) {
+  e.preventDefault();
+  const email = document.getElementById('nlEmail').value.trim();
+  const subs = getSubscribers();
+  if (!subs.find(s => s.email === email)) {
+    subs.push({ email, date: new Date().toLocaleDateString() });
+    setSubscribers(subs);
+    showToast('You are in! Welcome to the Bagistrate inner circle.', 'success');
+  } else {
+    showToast('You are already subscribed.', 'success');
+  }
+  document.getElementById('nlEmail').value = '';
+}
+
+// ============================================================
+// ADMIN LOGIN — hardcoded credentials
+// ============================================================
+function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const pwd   = document.getElementById('loginPwd').value;
+  const errEl = document.getElementById('loginError');
+  
+  // ── CHECK HARDCODED CREDENTIALS ──────────────────────────
+  if (email === ADMIN_EMAIL && pwd === ADMIN_PASSWORD) {
+    errEl.style.display = 'none';
+    document.getElementById('adminUserTag').textContent = 'Blessing Mu';
+    showPage('admin');
+    showToast('Welcome back, Blessing!', 'success');
+  } else {
+    errEl.textContent = 'Invalid email or password.';
+    errEl.style.display = 'block';
+  }
+}
+
+function adminLogout() { 
+  showPage('home');
+  showToast('Logged out successfully.', 'success');
+}
+
+// ============================================================
+// ADMIN — DASHBOARD
+// ============================================================
+function renderAdminDashboard() {
+  const orders = getOrders();
+  const revenue = orders.filter(o => o.status === 'confirmed').reduce((s, o) => s + o.total, 0);
+  document.getElementById('statOrders').textContent   = orders.length;
+  document.getElementById('statRevenue').textContent  = fmtPrice(revenue);
+  document.getElementById('statProducts').textContent = getProducts().length;
+  document.getElementById('statSubs').textContent     = getSubscribers().length;
+  const tbody = document.getElementById('dashOrdersBody');
+  if (!orders.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-light);padding:2rem;">No orders yet.</td></tr>'; return; }
+  tbody.innerHTML = orders.slice(0, 6).map(o => `<tr>
+    <td>${o.name}</td>
+    <td>${o.items.length} item(s)</td>
+    <td>${fmtPrice(o.total)}</td>
+    <td><span class="status-badge status-${o.status}">${o.status}</span></td>
+    <td>${o.date}</td>
+  </tr>`).join('');
+}
+
+// ============================================================
+// ADMIN — ORDERS
+// ============================================================
+function renderOrdersTable() {
+  const orders = getOrders();
+  const tbody = document.getElementById('ordersBody');
+  if (!orders.length) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-light);padding:2rem;">No orders yet.</td></tr>'; return; }
+  tbody.innerHTML = orders.map((o, i) => `<tr>
+    <td><small>${o.id}</small></td>
+    <td><strong>${o.name}</strong><br><small>${o.phone}</small></td>
+    <td><small>${o.email}</small></td>
+    <td style="max-width:180px;font-size:0.8rem;">${o.items.map(x => x.name).join(', ')}</td>
+    <td>${fmtPrice(o.total)}</td>
+    <td>
+      <select style="font-size:0.8rem;padding:4px 6px;border-radius:6px;border:1px solid var(--border);background:white;" onchange="updateOrderStatus(${i}, this.value)">
+        <option value="pending"   ${o.status === 'pending'   ? 'selected' : ''}>Pending</option>
+        <option value="confirmed" ${o.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
+        <option value="shipped"   ${o.status === 'shipped'   ? 'selected' : ''}>Shipped</option>
+      </select>
+    </td>
+    <td><button class="action-btn action-delete" onclick="deleteOrder(${i})">Delete</button></td>
+  </tr>`).join('');
+}
+function updateOrderStatus(idx, val) {
+  const orders = getOrders(); orders[idx].status = val; setOrders(orders);
+  showToast('Order status updated.', 'success');
+  renderAdminDashboard();
+}
+function deleteOrder(idx) {
+  if (!confirm('Delete this order? This cannot be undone.')) return;
+  const orders = getOrders(); orders.splice(idx, 1); setOrders(orders);
+  renderOrdersTable(); renderAdminDashboard(); showToast('Order deleted.');
+}
+
+// ============================================================
+// ADMIN — PRODUCTS
+// ============================================================
+function renderProductsTable() {
+  const tbody = document.getElementById('productsBody');
+  const prods = getProducts();
+  if (!prods.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-light);padding:2rem;">No products yet.</td></tr>'; return; }
+  tbody.innerHTML = prods.map((p, i) => `<tr>
+    <td><img class="product-manage-img" src="${p.img}" alt="${p.name}" onerror="this.style.opacity=0"></td>
+    <td><strong>${p.name}</strong></td>
+    <td><span class="tag">${p.cat}</span></td>
+    <td>${fmtPrice(p.price)}</td>
+    <td>
+      <button class="action-btn action-edit" onclick="openEditProduct(${i})">Edit</button>
+      <button class="action-btn action-delete" onclick="deleteProduct(${i})">Delete</button>
+    </td>
+  </tr>`).join('');
+}
+function previewNewProdImg(inp) {
+  if (inp.files[0]) {
+    const r = new FileReader();
+    r.onload = e => { const img = document.getElementById('newPImgPreview'); img.src = e.target.result; img.style.display = 'block'; inp._data = e.target.result; };
+    r.readAsDataURL(inp.files[0]);
+  }
+}
+function addProduct() {
+  const name     = document.getElementById('newPName').value.trim();
+  const cat      = document.getElementById('newPCat').value;
+  const price    = parseInt(document.getElementById('newPPrice').value);
+  const oldPrice = parseInt(document.getElementById('newPOldPrice').value) || null;
+  const desc     = document.getElementById('newPDesc').value.trim();
+  const imgInp   = document.getElementById('newPImg');
+  const img      = imgInp._data || 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80';
+  if (!name || !price) { showToast('Please fill in at least the name and price.', 'error'); return; }
+  const prods = getProducts();
+  prods.push({ id: Date.now(), name, cat, price, oldPrice, desc, img, badge: null });
+  setProducts(prods);
+  document.getElementById('newPName').value = '';
+  document.getElementById('newPPrice').value = '';
+  document.getElementById('newPOldPrice').value = '';
+  document.getElementById('newPDesc').value = '';
+  document.getElementById('newPImgPreview').style.display = 'none';
+  imgInp._data = null;
+  renderProductsTable();
+  showToast('Product added. It is now live in the store.', 'success');
+}
+function openEditProduct(idx) {
+  const p = getProducts()[idx];
+  document.getElementById('editProdIdx').value  = idx;
+  document.getElementById('editName').value     = p.name;
+  document.getElementById('editPrice').value    = p.price;
+  document.getElementById('editOldPrice').value = p.oldPrice || '';
+  document.getElementById('editDesc').value     = p.desc;
+  document.getElementById('editImgPreview').style.display = 'none';
+  editImgData = null;
+  document.getElementById('editModal').classList.add('open');
+}
+function previewEditImg(inp) {
+  if (inp.files[0]) {
+    const r = new FileReader();
+    r.onload = e => { const img = document.getElementById('editImgPreview'); img.src = e.target.result; img.style.display = 'block'; editImgData = e.target.result; };
+    r.readAsDataURL(inp.files[0]);
+  }
+}
+function saveEditProduct() {
+  const idx   = parseInt(document.getElementById('editProdIdx').value);
+  const prods = getProducts();
+  prods[idx].name     = document.getElementById('editName').value;
+  prods[idx].price    = parseInt(document.getElementById('editPrice').value);
+  prods[idx].oldPrice = parseInt(document.getElementById('editOldPrice').value) || null;
+  prods[idx].desc     = document.getElementById('editDesc').value;
+  if (editImgData) prods[idx].img = editImgData;
+  setProducts(prods);
+  closeModal('editModal');
+  renderProductsTable();
+  showToast('Product updated. Changes are live in the store.', 'success');
+}
+function deleteProduct(idx) {
+  if (!confirm('Delete this product? It will be removed from the store immediately.')) return;
+  const prods = getProducts(); prods.splice(idx, 1); setProducts(prods);
+  renderProductsTable();
+  showToast('Product deleted from the store.', 'success');
+}
+
+// ============================================================
+// ADMIN — NEWSLETTER
+// ============================================================
+function renderSubsTable() {
+  const subs = getSubscribers();
+  document.getElementById('nlSubCountEl').textContent = subs.length;
+  const tbody = document.getElementById('subsBody');
+  if (!subs.length) { tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-light);padding:2rem;">No subscribers yet.</td></tr>'; return; }
+  tbody.innerHTML = subs.map((s, i) => `<tr>
+    <td>${i + 1}</td>
+    <td>${s.email}</td>
+    <td>${s.date}</td>
+    <td><button class="action-btn action-delete" onclick="removeSub(${i})">Remove</button></td>
+  </tr>`).join('');
+}
+function removeSub(idx) {
+  const subs = getSubscribers(); subs.splice(idx, 1); setSubscribers(subs);
+  renderSubsTable(); showToast('Subscriber removed.');
+}
+function sendNewsletter() {
+  const subj = document.getElementById('nlSubject').value.trim();
+  const body = document.getElementById('nlBody').value.trim();
+  const subs = getSubscribers();
+  if (!subj || !body) { showToast('Please fill in both subject and message.', 'error'); return; }
+  if (!subs.length) { showToast('There are no subscribers yet.'); return; }
+  console.log(`[NEWSLETTER]\nTo: ${subs.map(s => s.email).join(', ')}\nSubject: ${subj}\n\n${body}`);
+  showToast(`Newsletter sent to ${subs.length} subscriber(s).`, 'success');
+  document.getElementById('nlSubject').value = '';
+  document.getElementById('nlBody').value = '';
+}
+
+// ============================================================
+// ADMIN — SETTINGS
+// ============================================================
+function loadSettingsUI() {
+  const s = getSettings();
+  if (s.bankName) {
+    document.getElementById('setBankName').value = s.bankName;
+    document.getElementById('setAccName').value  = s.accName || '';
+    document.getElementById('setAccNum').value   = s.accNum  || '';
+    document.getElementById('dspBankName').textContent = s.bankName;
+    document.getElementById('dspAccName').textContent  = s.accName || '';
+    document.getElementById('dspAccNum').textContent   = s.accNum  || '';
+    document.getElementById('bankSetForm').style.display    = 'none';
+    document.getElementById('bankSetDisplay').style.display = 'block';
+    document.getElementById('clearBankBtn').style.display   = 'inline-block';
+  } else {
+    document.getElementById('bankSetForm').style.display    = 'block';
+    document.getElementById('bankSetDisplay').style.display = 'none';
+    document.getElementById('clearBankBtn').style.display   = 'none';
+  }
+  if (s.adminEmail) {
+    document.getElementById('setAdminEmail').value = s.adminEmail;
+    document.getElementById('dspAdminEmail').textContent = s.adminEmail;
+    document.getElementById('emailSetForm').style.display    = 'none';
+    document.getElementById('emailSetDisplay').style.display = 'block';
+    document.getElementById('clearEmailBtn').style.display   = 'inline-block';
+  } else {
+    document.getElementById('emailSetForm').style.display    = 'block';
+    document.getElementById('emailSetDisplay').style.display = 'none';
+    document.getElementById('clearEmailBtn').style.display   = 'none';
+  }
+}
+function saveBankDetails() {
+  const s = getSettings();
+  const name = document.getElementById('setBankName').value.trim();
+  const accN = document.getElementById('setAccName').value.trim();
+  const accU = document.getElementById('setAccNum').value.trim();
+  if (!name || !accN || !accU) { showToast('Please fill in all bank fields.', 'error'); return; }
+  s.bankName = name; s.accName = accN; s.accNum = accU;
+  setSettings(s); loadSettingsUI();
+  showToast('Bank details saved. Customers will see these at checkout.', 'success');
+}
+function clearBankDetails() {
+  if (!confirm('Remove bank details? Customers will see "Not configured" at checkout.')) return;
+  const s = getSettings();
+  delete s.bankName; delete s.accName; delete s.accNum;
+  setSettings(s); loadSettingsUI();
+  showToast('Bank details removed.');
+}
+function saveAdminEmail() {
+  const email = document.getElementById('setAdminEmail').value.trim();
+  if (!email) { showToast('Please enter an email.', 'error'); return; }
+  const s = getSettings(); s.adminEmail = email; setSettings(s);
+  loadSettingsUI();
+  showToast('Notification email saved.', 'success');
+}
+function clearNotifEmail() {
+  if (!confirm('Remove notification email?')) return;
+  const s = getSettings(); delete s.adminEmail; setSettings(s);
+  loadSettingsUI(); showToast('Notification email removed.');
+}
+function changeAdminPassword() {
+  // This is a simple password change that only affects the hardcoded password
+  const np1  = document.getElementById('changePwd1').value;
+  const np2  = document.getElementById('changePwd2').value;
+  if (!np1 || np1.length < 6) { showToast('New password must be at least 6 characters.', 'error'); return; }
+  if (np1 !== np2) { showToast('New passwords do not match.', 'error'); return; }
+  // Since we're using hardcoded credentials, we'll store the new password in localStorage
+  save('bg_custom_password', np1);
+  document.getElementById('curPwd').value = '';
+  document.getElementById('changePwd1').value = '';
+  document.getElementById('changePwd2').value = '';
+  showToast('Password updated successfully. Use your new password next time.', 'success');
+}
+
+// Override the login to check for custom password
+const originalDoLogin = doLogin;
+doLogin = function() {
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const pwd   = document.getElementById('loginPwd').value;
+  const errEl = document.getElementById('loginError');
+  const customPwd = load('bg_custom_password', null);
+  const validPwd = customPwd || ADMIN_PASSWORD;
+  
+  if (email === ADMIN_EMAIL && pwd === validPwd) {
+    errEl.style.display = 'none';
+    document.getElementById('adminUserTag').textContent = 'Blessing Mu';
+    showPage('admin');
+    showToast('Welcome back, Blessing!', 'success');
+  } else {
+    errEl.textContent = 'Invalid email or password.';
+    errEl.style.display = 'block';
+  }
+};
+
+// ============================================================
+// ADMIN TAB SWITCHER
+// ============================================================
+function adminTab(name, el) {
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.admin-nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('admin-' + name).classList.add('active');
+  el.classList.add('active');
+  const titles = { dashboard: 'Dashboard', orders: 'Orders', products: 'Products', newsletter: 'Newsletter', settings: 'Settings' };
+  document.getElementById('adminTitle').textContent = titles[name] || name;
+  if (name === 'dashboard')  renderAdminDashboard();
+  if (name === 'orders')     renderOrdersTable();
+  if (name === 'products')   renderProductsTable();
+  if (name === 'newsletter') renderSubsTable();
+  if (name === 'settings')   loadSettingsUI();
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (type ? ' ' + type : '');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+updateCartCount();
+renderHomeProducts();
+
+document.querySelectorAll('.modal-overlay').forEach(m =>
+  m.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('open'); })
+);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open'));
+});
+</script>
+</body>
+</html>
