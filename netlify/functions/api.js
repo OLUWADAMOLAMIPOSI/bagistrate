@@ -33,10 +33,10 @@ exports.handler = async (event, context) => {
 
   // Handle preflight OPTIONS request
   if (event.httpMethod === 'OPTIONS') {
-    return { 
-      statusCode: 200, 
-      headers, 
-      body: '' 
+    return {
+      statusCode: 200,
+      headers,
+      body: ''
     };
   }
 
@@ -58,18 +58,18 @@ exports.handler = async (event, context) => {
           return {
             statusCode: 200,
             headers,
-            body: JSON.stringify({ 
-              success: true, 
-              message: 'Data saved successfully' 
+            body: JSON.stringify({
+              success: true,
+              message: 'Data saved successfully'
             })
           };
         } else {
           return {
             statusCode: 500,
             headers,
-            body: JSON.stringify({ 
-              success: false, 
-              error: 'Could not save data' 
+            body: JSON.stringify({
+              success: false,
+              error: 'Could not save data'
             })
           };
         }
@@ -77,9 +77,9 @@ exports.handler = async (event, context) => {
         return {
           statusCode: 400,
           headers,
-          body: JSON.stringify({ 
-            success: false, 
-            error: 'Invalid JSON data' 
+          body: JSON.stringify({
+            success: false,
+            error: 'Invalid JSON data'
           })
         };
       }
@@ -100,18 +100,18 @@ exports.handler = async (event, context) => {
         return {
           statusCode: 200,
           headers,
-          body: JSON.stringify({ 
-            success: true, 
-            message: 'Data reset successfully' 
+          body: JSON.stringify({
+            success: true,
+            message: 'Data reset successfully'
           })
         };
       } else {
         return {
           statusCode: 500,
           headers,
-          body: JSON.stringify({ 
-            success: false, 
-            error: 'Could not reset data' 
+          body: JSON.stringify({
+            success: false,
+            error: 'Could not reset data'
           })
         };
       }
@@ -120,8 +120,8 @@ exports.handler = async (event, context) => {
       return {
         statusCode: 400,
         headers,
-        body: JSON.stringify({ 
-          error: 'Invalid action. Use ?action=get, ?action=save, ?action=ping, or ?action=reset' 
+        body: JSON.stringify({
+          error: 'Invalid action. Use ?action=get, ?action=save, ?action=ping, or ?action=reset'
         })
       };
   }

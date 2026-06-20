@@ -10,9 +10,3 @@
   from = "/"
   to = "/index.html"
   status = 200
-
-# Handle 404s by redirecting to index.html
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 404

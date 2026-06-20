@@ -7,7 +7,7 @@ const ADMIN_PASSWORD = 'OmowumiA19';  // Changed to OmowumiA19
 // ============================================================
 // NETLIFY API CONFIGURATION — Syncs across all devices
 // ============================================================
-const API_URL = '/api';
+const API_URL = 'netlify/functions/api.js';
 
 let masterData = {
     products: [],
