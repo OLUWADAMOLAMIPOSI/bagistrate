@@ -61,7 +61,7 @@ exports.handler = async (event, context) => {
       return {
         statusCode: 400,
         headers,
-        body: JSON.stringify({ error: 'Invalid action' })
+        body: JSON.stringify({ error: 'Invalid action. Use ?action=get, ?action=save, or ?action=ping' })
       };
   }
 };

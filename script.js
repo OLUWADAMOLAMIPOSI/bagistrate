@@ -2,12 +2,14 @@
 // ADMIN CREDENTIALS — only these work
 // ============================================================
 const ADMIN_EMAIL = 'blessingmu321@gmail.com';
-const ADMIN_PASSWORD = 'OmowumiA19';  // Changed to OmowumiA19
+const ADMIN_PASSWORD = 'OmowumiA19';
 
 // ============================================================
 // NETLIFY API CONFIGURATION — Syncs across all devices
 // ============================================================
-const API_URL = '/api';
+// Try this alternative URL:
+const API_URL = '/.netlify/functions/api';
+
 let masterData = {
     products: [],
     orders: [],
@@ -19,9 +21,9 @@ let masterData = {
 // EMAILJS CONFIGURATION — For email notifications
 // ============================================================
 const EMAILJS_CONFIG = {
-    serviceID: 'YOUR_EMAILJS_SERVICE_ID',   // Get from EmailJS dashboard
-    templateID: 'YOUR_EMAILJS_TEMPLATE_ID', // Get from EmailJS dashboard
-    publicKey: 'YOUR_EMAILJS_PUBLIC_KEY'    // Get from EmailJS dashboard
+    serviceID: 'YOUR_EMAILJS_SERVICE_ID',
+    templateID: 'YOUR_EMAILJS_TEMPLATE_ID',
+    publicKey: 'YOUR_EMAILJS_PUBLIC_KEY'
 };
 
 // ============================================================
@@ -34,7 +36,6 @@ function toggleMenu() {
   hamburger.classList.toggle('active');
 }
 
-// Close main nav menu when a link is clicked
 document.querySelectorAll('#navLinks a').forEach(link => {
   link.addEventListener('click', function() {
     document.getElementById('navLinks').classList.remove('active');
@@ -42,7 +43,6 @@ document.querySelectorAll('#navLinks a').forEach(link => {
   });
 });
 
-// Close main nav menu when clicking outside
 document.addEventListener('click', function(e) {
   const nav = document.getElementById('mainNav');
   const hamburger = document.getElementById('hamburgerBtn');
@@ -62,13 +62,10 @@ function toggleAdminMenu() {
   hamburger.classList.toggle('active');
 }
 
-// Close admin sidebar when clicking outside
 document.addEventListener('click', function(e) {
   const sidebar = document.getElementById('adminSidebar');
   const hamburger = document.getElementById('adminHamburger');
-  const main = document.getElementById('adminMain');
   
-  // Only on mobile and if sidebar is open
   if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
     if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
       sidebar.classList.remove('open');
@@ -77,7 +74,6 @@ document.addEventListener('click', function(e) {
   }
 });
 
-// Close admin sidebar when a nav link is clicked (mobile)
 document.querySelectorAll('.admin-nav-link').forEach(link => {
   link.addEventListener('click', function() {
     if (window.innerWidth <= 768) {
@@ -105,7 +101,6 @@ async function loadFromServer() {
         const data = await res.json();
         if (data.error) { throw new Error(data.error); }
         masterData = data;
-        // Backup to localStorage
         save('bg_products', masterData.products);
         save('bg_orders', masterData.orders);
         save('bg_subs', masterData.subscribers);
@@ -241,7 +236,7 @@ function loadEmailJS() {
 }
 
 // ============================================================
-// REPLACED GET/SET FUNCTIONS (Now using masterData & API)
+// REPLACED GET/SET FUNCTIONS
 // ============================================================
 function getProducts()    { return masterData.products || []; }
 function getOrders()      { return masterData.orders || []; }
@@ -256,12 +251,12 @@ async function setSettings(v)    { masterData.settings = v; await saveToServer()
 function setCart(v)              { save('bg_cart', v); }
 
 const DEFAULT_PRODUCTS = [
-  { id:1, name:'Bella Tote', cat:'tote', price:28500, oldPrice:35000, desc:'A roomy, structured tote in premium vegan leather. Perfect for work or weekend errands.', img:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80', badge:'Bestseller' },
-  { id:2, name:'Rose Mini Bag', cat:'mini', price:18000, oldPrice:22000, desc:'Chic mini crossbody with gold chain strap. Available in blush pink and champagne.', img:'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&q=80', badge:'New' },
-  { id:3, name:'La Femme Clutch', cat:'clutch', price:15500, oldPrice:null, desc:'Elegant envelope clutch in buttery soft faux-suede. Evenings just got more glamorous.', img:'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=400&q=80', badge:null },
-  { id:4, name:'Zara Shoulder Bag', cat:'shoulder', price:24000, oldPrice:29500, desc:'Classic structured shoulder bag with detachable strap and signature gold clasp.', img:'https://images.unsplash.com/photo-1591561954557-26941169b49e?w=400&q=80', badge:'Sale' },
-  { id:5, name:'Luxe Croc Tote', cat:'luxury', price:55000, oldPrice:68000, desc:'Statement croc-embossed luxury tote. Limited edition — only 10 pieces available.', img:'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&q=80', badge:'Limited' },
-  { id:6, name:'Pearl Chain Mini', cat:'mini', price:16500, oldPrice:null, desc:'Adorable pearl-handle mini bag with satin finish. The ultimate going-out accessory.', img:'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=400&q=80', badge:'New' },
+  { id:1, name:'Bella Tote', cat:'tote', price:28500, oldPrice:35000, desc:'A roomy, structured tote in premium vegan leather.', img:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80', badge:'Bestseller' },
+  { id:2, name:'Rose Mini Bag', cat:'mini', price:18000, oldPrice:22000, desc:'Chic mini crossbody with gold chain strap.', img:'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&q=80', badge:'New' },
+  { id:3, name:'La Femme Clutch', cat:'clutch', price:15500, oldPrice:null, desc:'Elegant envelope clutch in buttery soft faux-suede.', img:'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=400&q=80', badge:null },
+  { id:4, name:'Zara Shoulder Bag', cat:'shoulder', price:24000, oldPrice:29500, desc:'Classic structured shoulder bag with detachable strap.', img:'https://images.unsplash.com/photo-1591561954557-26941169b49e?w=400&q=80', badge:'Sale' },
+  { id:5, name:'Luxe Croc Tote', cat:'luxury', price:55000, oldPrice:68000, desc:'Statement croc-embossed luxury tote. Limited edition.', img:'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&q=80', badge:'Limited' },
+  { id:6, name:'Pearl Chain Mini', cat:'mini', price:16500, oldPrice:null, desc:'Adorable pearl-handle mini bag with satin finish.', img:'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=400&q=80', badge:'New' },
 ];
 
 let modalProd = null;
@@ -276,7 +271,7 @@ function showPage(p) {
   document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
   const pg = document.getElementById('page-' + p);
   if (pg) pg.classList.add('active');
-  const isAdmin = (p === 'admin' || p === 'admin-login' || p === 'admin-register' || p === 'admin-forgot');
+  const isAdmin = (p === 'admin' || p === 'admin-login');
   document.getElementById('mainNav').style.display    = isAdmin ? 'none' : '';
   document.getElementById('mainFooter').style.display = isAdmin ? 'none' : '';
   document.getElementById('waFloat').style.display    = isAdmin ? 'none' : '';
@@ -286,9 +281,11 @@ function showPage(p) {
   if (p === 'checkout'){ renderCheckoutPage(); }
   if (p === 'admin')   { renderAdminDashboard(); }
 }
+
 function scrollToSection(id) {
   setTimeout(() => { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 100);
 }
+
 function goAdminEntry() {
   showPage('admin-login');
 }
@@ -323,7 +320,9 @@ function renderHomeProducts() {
   g.innerHTML = '';
   getProducts().slice(0, 3).forEach(p => g.appendChild(buildProductCard(p)));
 }
+
 function filterCat(f) { currentFilter = f; renderShopProducts(); }
+
 function renderShopProducts() {
   const g = document.getElementById('shopProductGrid');
   if (!g) return;
@@ -347,15 +346,18 @@ function openProductModal(id) {
   document.getElementById('modalQtyEl').textContent = 1;
   document.getElementById('productModal').classList.add('open');
 }
+
 function changeQty(d) {
   modalQtyVal = Math.max(1, modalQtyVal + d);
   document.getElementById('modalQtyEl').textContent = modalQtyVal;
 }
+
 function addModalToCart() {
   if (!modalProd) return;
   addToCart(modalProd, modalQtyVal);
   closeModal('productModal');
 }
+
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
 // ============================================================
@@ -367,14 +369,17 @@ function addToCart(p, qty) {
   if (ex) ex.qty += qty; else cart.push({ id: p.id, name: p.name, price: p.price, img: p.img, qty });
   setCart(cart); updateCartCount(); showToast(p.name + ' added to bag', 'success');
 }
+
 function updateCartCount() {
   const c = getCart().reduce((s, i) => s + i.qty, 0);
   document.getElementById('cartCount').textContent = c;
 }
+
 function toggleCart() {
   document.getElementById('cartSidebar').classList.toggle('open');
   renderCartUI();
 }
+
 function renderCartUI() {
   const cart = getCart();
   const el = document.getElementById('cartItemsEl');
@@ -394,6 +399,7 @@ function renderCartUI() {
     </div>`).join('');
   document.getElementById('cartTotalEl').textContent = fmtPrice(cart.reduce((s, i) => s + i.price * i.qty, 0));
 }
+
 function removeCartItem(idx) {
   const cart = getCart(); cart.splice(idx, 1); setCart(cart);
   updateCartCount(); renderCartUI();
@@ -407,9 +413,10 @@ function proceedCheckout() {
   document.getElementById('cartSidebar').classList.remove('open');
   showPage('checkout');
 }
+
 function renderCheckoutPage() {
   const s = getSettings();
-  document.getElementById('dispBank').textContent    = s.bankName || 'Not configured — contact admin';
+  document.getElementById('dispBank').textContent    = s.bankName || 'Not configured';
   document.getElementById('dispAccName').textContent = s.accName  || 'Not configured';
   document.getElementById('dispAccNum').textContent  = s.accNum   || 'Not configured';
   const total = getCart().reduce((s, i) => s + i.price * i.qty, 0);
@@ -418,6 +425,7 @@ function renderCheckoutPage() {
   si.innerHTML = getCart().map(i => `<div class="summary-item"><span>${i.name} x${i.qty}</span><span>${fmtPrice(i.price * i.qty)}</span></div>`).join('');
   document.getElementById('summaryTotalEl').textContent = fmtPrice(total);
 }
+
 function previewProof(inp) {
   if (inp.files[0]) {
     const r = new FileReader();
@@ -427,7 +435,7 @@ function previewProof(inp) {
 }
 
 // ============================================================
-// PLACE ORDER (UPDATED - Sends emails)
+// PLACE ORDER
 // ============================================================
 async function placeOrder(e) {
   e.preventDefault();
@@ -457,7 +465,6 @@ async function placeOrder(e) {
   orders.unshift(order);
   await setOrders(orders);
 
-  // Send notifications
   await sendAdminNotification(order);
   await sendCustomerNotification(order, 'pending');
 
@@ -469,7 +476,7 @@ async function placeOrder(e) {
 }
 
 // ============================================================
-// NEWSLETTER (storefront)
+// NEWSLETTER
 // ============================================================
 async function subscribeNewsletter(e) {
   e.preventDefault();
@@ -478,7 +485,7 @@ async function subscribeNewsletter(e) {
   if (!subs.find(s => s.email === email)) {
     subs.push({ email, date: new Date().toLocaleDateString() });
     await setSubscribers(subs);
-    showToast('You are in! Welcome to the Bagistrate inner circle.', 'success');
+    showToast('Welcome to the Bagistrate inner circle!', 'success');
   } else {
     showToast('You are already subscribed.', 'success');
   }
@@ -486,7 +493,7 @@ async function subscribeNewsletter(e) {
 }
 
 // ============================================================
-// ADMIN LOGIN — hardcoded credentials
+// ADMIN LOGIN
 // ============================================================
 function doLogin() {
   const email = document.getElementById('loginEmail').value.trim().toLowerCase();
@@ -522,7 +529,7 @@ function renderAdminDashboard() {
   document.getElementById('statProducts').textContent = getProducts().length;
   document.getElementById('statSubs').textContent     = getSubscribers().length;
   const tbody = document.getElementById('dashOrdersBody');
-  if (!orders.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-light);padding:2rem;">No orders yet.</td></tr>'; return; }
+  if (!orders.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:2rem;">No orders yet.</td></tr>'; return; }
   tbody.innerHTML = orders.slice(0, 6).map(o => `<tr>
     <td>${o.name}</td>
     <td>${o.items.length} item(s)</td>
@@ -533,21 +540,19 @@ function renderAdminDashboard() {
 }
 
 // ============================================================
-// ADMIN — ORDERS (UPDATED with Confirm & Ship buttons)
+// ADMIN — ORDERS
 // ============================================================
 function renderOrdersTable() {
   const orders = getOrders();
   const tbody = document.getElementById('ordersBody');
-  if (!orders.length) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--text-light);padding:2rem;">No orders yet.</td></tr>'; return; }
+  if (!orders.length) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:2rem;">No orders yet.</td></tr>'; return; }
   tbody.innerHTML = orders.map((o, i) => `<tr>
     <td><small>${o.id}</small></td>
     <td><strong>${o.name}</strong><br><small>${o.phone}</small></td>
     <td><small>${o.email}</small></td>
     <td style="max-width:180px;font-size:0.8rem;">${o.items.map(x => x.name).join(', ')}</td>
     <td>${fmtPrice(o.total)}</td>
-    <td>
-      <span class="status-badge status-${o.status}">${o.status}</span>
-    </td>
+    <td><span class="status-badge status-${o.status}">${o.status}</span></td>
     <td>
       ${o.status === 'pending' ? `<button class="action-btn action-edit" onclick="confirmPayment(${i})">Confirm Payment</button>` : ''}
       ${o.status === 'confirmed' ? `<button class="action-btn action-edit" onclick="markAsShipped(${i})">Mark Shipped</button>` : ''}
@@ -557,7 +562,7 @@ function renderOrdersTable() {
 }
 
 // ============================================================
-// CONFIRM PAYMENT (Admin action - sends email)
+// CONFIRM PAYMENT
 // ============================================================
 async function confirmPayment(orderIndex) {
   if (!confirm('Confirm payment for this order? The customer will be notified.')) return;
@@ -572,7 +577,7 @@ async function confirmPayment(orderIndex) {
 }
 
 // ============================================================
-// MARK AS SHIPPED (Admin action - sends email)
+// MARK AS SHIPPED
 // ============================================================
 async function markAsShipped(orderIndex) {
   if (!confirm('Mark this order as shipped? The customer will be notified.')) return;
@@ -587,7 +592,7 @@ async function markAsShipped(orderIndex) {
 }
 
 // ============================================================
-// UPDATE ORDER STATUS (UPDATED - sends emails)
+// UPDATE ORDER STATUS
 // ============================================================
 async function updateOrderStatus(idx, val) {
   const orders = getOrders(); 
@@ -599,7 +604,7 @@ async function updateOrderStatus(idx, val) {
 }
 
 // ============================================================
-// DELETE ORDER (UPDATED)
+// DELETE ORDER
 // ============================================================
 async function deleteOrder(idx) {
   if (!confirm('Delete this order? This cannot be undone.')) return;
@@ -617,7 +622,7 @@ async function deleteOrder(idx) {
 function renderProductsTable() {
   const tbody = document.getElementById('productsBody');
   const prods = getProducts();
-  if (!prods.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-light);padding:2rem;">No products yet.</td></tr>'; return; }
+  if (!prods.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:2rem;">No products yet.</td></tr>'; return; }
   tbody.innerHTML = prods.map((p, i) => `<tr>
     <td><img class="product-manage-img" src="${p.img}" alt="${p.name}" onerror="this.style.opacity=0"></td>
     <td><strong>${p.name}</strong></td>
@@ -629,6 +634,7 @@ function renderProductsTable() {
     </td>
   </tr>`).join('');
 }
+
 function previewNewProdImg(inp) {
   if (inp.files[0]) {
     const r = new FileReader();
@@ -638,7 +644,7 @@ function previewNewProdImg(inp) {
 }
 
 // ============================================================
-// ADD PRODUCT (UPDATED - async)
+// ADD PRODUCT
 // ============================================================
 async function addProduct() {
   const name     = document.getElementById('newPName').value.trim();
@@ -661,6 +667,7 @@ async function addProduct() {
   renderProductsTable();
   showToast('Product added and synced to all devices.', 'success');
 }
+
 function openEditProduct(idx) {
   const p = getProducts()[idx];
   document.getElementById('editProdIdx').value  = idx;
@@ -672,6 +679,7 @@ function openEditProduct(idx) {
   editImgData = null;
   document.getElementById('editModal').classList.add('open');
 }
+
 function previewEditImg(inp) {
   if (inp.files[0]) {
     const r = new FileReader();
@@ -681,7 +689,7 @@ function previewEditImg(inp) {
 }
 
 // ============================================================
-// SAVE EDIT PRODUCT (UPDATED - async)
+// SAVE EDIT PRODUCT
 // ============================================================
 async function saveEditProduct() {
   const idx   = parseInt(document.getElementById('editProdIdx').value);
@@ -694,11 +702,11 @@ async function saveEditProduct() {
   await setProducts(prods);
   closeModal('editModal');
   renderProductsTable();
-  showToast('Product updated. Changes are live in the store.', 'success');
+  showToast('Product updated.', 'success');
 }
 
 // ============================================================
-// DELETE PRODUCT (UPDATED - async)
+// DELETE PRODUCT
 // ============================================================
 async function deleteProduct(idx) {
   if (!confirm('Delete this product? It will be removed from the store immediately.')) return;
@@ -706,7 +714,7 @@ async function deleteProduct(idx) {
   prods.splice(idx, 1); 
   await setProducts(prods);
   renderProductsTable();
-  showToast('Product deleted from the store.', 'success');
+  showToast('Product deleted.', 'success');
 }
 
 // ============================================================
@@ -716,7 +724,7 @@ function renderSubsTable() {
   const subs = getSubscribers();
   document.getElementById('nlSubCountEl').textContent = subs.length;
   const tbody = document.getElementById('subsBody');
-  if (!subs.length) { tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-light);padding:2rem;">No subscribers yet.</td></tr>'; return; }
+  if (!subs.length) { tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:2rem;">No subscribers yet.</td></tr>'; return; }
   tbody.innerHTML = subs.map((s, i) => `<tr>
     <td>${i + 1}</td>
     <td>${s.email}</td>
@@ -726,7 +734,7 @@ function renderSubsTable() {
 }
 
 // ============================================================
-// REMOVE SUB (UPDATED - async)
+// REMOVE SUB
 // ============================================================
 async function removeSub(idx) {
   const subs = getSubscribers(); 
@@ -735,6 +743,7 @@ async function removeSub(idx) {
   renderSubsTable(); 
   showToast('Subscriber removed.');
 }
+
 function sendNewsletter() {
   const subj = document.getElementById('nlSubject').value.trim();
   const body = document.getElementById('nlBody').value.trim();
@@ -781,7 +790,7 @@ function loadSettingsUI() {
 }
 
 // ============================================================
-// SAVE BANK DETAILS (UPDATED - async)
+// SAVE BANK DETAILS
 // ============================================================
 async function saveBankDetails() {
   const s = getSettings();
@@ -792,14 +801,14 @@ async function saveBankDetails() {
   s.bankName = name; s.accName = accN; s.accNum = accU;
   await setSettings(s); 
   loadSettingsUI();
-  showToast('Bank details saved. Customers will see these at checkout.', 'success');
+  showToast('Bank details saved.', 'success');
 }
 
 // ============================================================
-// CLEAR BANK DETAILS (UPDATED - async)
+// CLEAR BANK DETAILS
 // ============================================================
 async function clearBankDetails() {
-  if (!confirm('Remove bank details? Customers will see "Not configured" at checkout.')) return;
+  if (!confirm('Remove bank details?')) return;
   const s = getSettings();
   delete s.bankName; delete s.accName; delete s.accNum;
   await setSettings(s); 
@@ -808,7 +817,7 @@ async function clearBankDetails() {
 }
 
 // ============================================================
-// SAVE ADMIN EMAIL (UPDATED - async)
+// SAVE ADMIN EMAIL
 // ============================================================
 async function saveAdminEmail() {
   const email = document.getElementById('setAdminEmail').value.trim();
@@ -821,7 +830,7 @@ async function saveAdminEmail() {
 }
 
 // ============================================================
-// CLEAR NOTIFICATION EMAIL (UPDATED - async)
+// CLEAR NOTIFICATION EMAIL
 // ============================================================
 async function clearNotifEmail() {
   if (!confirm('Remove notification email?')) return;
@@ -831,6 +840,7 @@ async function clearNotifEmail() {
   loadSettingsUI(); 
   showToast('Notification email removed.');
 }
+
 function changeAdminPassword() {
   const np1  = document.getElementById('changePwd1').value;
   const np2  = document.getElementById('changePwd2').value;
@@ -840,7 +850,7 @@ function changeAdminPassword() {
   document.getElementById('curPwd').value = '';
   document.getElementById('changePwd1').value = '';
   document.getElementById('changePwd2').value = '';
-  showToast('Password updated successfully. Use your new password next time.', 'success');
+  showToast('Password updated.', 'success');
 }
 
 // ============================================================
@@ -872,15 +882,14 @@ function showToast(msg, type) {
 }
 
 // ============================================================
-// INIT (UPDATED - loads data from server)
+// INIT
 // ============================================================
 async function init() {
     await loadFromServer();
     updateCartCount();
     renderHomeProducts();
-    console.log('🚀 Bagistrate initialized with server sync');
+    console.log('🚀 Bagistrate initialized');
     console.log('💡 Run testAPI() to test connection');
-    console.log('📧 Configure EmailJS for email notifications');
 }
 
 init();
